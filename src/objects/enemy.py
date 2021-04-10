@@ -32,4 +32,4 @@ class Enemy:
 
     def update(self):
         # print(f"Enemy last update: {self.clock.tick()}")
-        self.y_pos -= self.speed * 10 * self.clock.tick()
+        self.y_pos -= self.speed * 2 * self.clock.tick()
