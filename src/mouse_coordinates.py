@@ -50,7 +50,7 @@ class MainWindow(pyglet.window.Window):
     def render(self):
         self.clear()
         self.cursor.draw(self.mouse_x, self.mouse_y)
-        self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width -300, self.height -36)
+        self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width -310, self.height -36)
         self.cursor_info.draw()
 
         self.flip()

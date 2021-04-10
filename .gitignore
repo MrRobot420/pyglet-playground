@@ -1,4 +1,5 @@
 .DS_Store
-/test/resources/cursor/.DS_Store
-/test/resources/.DS_Store
-/test/.DS_Store
+/examples/.DS_Store
+/src/resources/cursor/.DS_Store
+/src/resources/.DS_Store
+/src/.DS_Store
