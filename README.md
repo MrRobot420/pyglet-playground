@@ -111,8 +111,8 @@ if __name__ == '__main__':
 # USE YOUR OWN IMAGE MOUSE CURSOR
 if __name__ == '__main__':
     window = MainWindow(640, 480, 'Game Name', resizable=True)
-    # window.set_mouse_visible(False) # Hide the mouse cursor
-    cursor = window.get_system_mouse_cursor(window.CURSOR_CROSSHAIR)
+    image = pyglet.image.load('./resources/cursor/red_cross.png')
+    cursor = pyglet.window.ImageMouseCursor(image, 16, 16)
     window.set_mouse_cursor(cursor)
     pyglet.app.run()
 
