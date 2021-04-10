@@ -62,12 +62,14 @@ class MainWindow(pyglet.window.Window):
         for index, enemy in enumerate(self.enemies):
             if enemy.y_pos <= 0:
                 self.enemies.pop(index)
-                self.enemies.append(Enemy(random.randint(100, 300),
-                                          100,
-                                          random.randint(5, 30),
-                                          random.randint(1, self.width),
-                                          self.height,
-                                          self.background))
+                self.enemies.append(
+                    Enemy(random.randint(100, 300),
+                          100,
+                          random.randint(5, 30),
+                          random.randint(1, self.width),
+                          self.height,
+                          self.background)
+                )
             enemy.draw(enemy.x_pos, enemy.y_pos)
             enemy.update()
 

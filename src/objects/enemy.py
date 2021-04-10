@@ -1,6 +1,7 @@
 import random
 
-from pyglet import shapes, clock
+import pyglet.sprite
+from pyglet import shapes, clock, image, sprite
 
 
 class Enemy:
@@ -12,10 +13,21 @@ class Enemy:
         self.y_pos = y_pos
         self.background = background
         self.clock = clock
+        # Png
+        self.image = image.load('./resources/enemies/axolotl.png')
+        self.cursor_sprite = sprite.Sprite(self.image, 0, 0)
+        self.image_width = self.image.width
+        self.image_height = self.image.height
 
     def draw(self, x, y):
-        square = shapes.Rectangle(x, y, self.size, self.size, color=(55, 55, 2), batch=self.background)
-        square.draw()
+        scale = 0.25
+        width = (self.image_width * scale) / 2
+        height = (self.image_height * scale) / 2
+        self.enemie_sprite = pyglet.sprite.Sprite(self.image, x - width, y - height, batch=self.background)
+        # square = shapes.Rectangle(x, y, self.size, self.size, color=(55, 55, 2), batch=self.background)
+        # square.draw()
+        self.enemie_sprite.scale = scale
+        self.enemie_sprite.draw()
         pass
 
     def update(self):
