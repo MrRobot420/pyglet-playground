@@ -54,16 +54,16 @@ class MainWindow(pyglet.window.Window):
         self.cursor.draw(self.mouse_x, self.mouse_y)
         self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width - 310, self.height - 36)
         self.cursor_info.draw()
-        self.enemy.draw(250, 5)
+        self.enemy.draw(self.enemy.x_pos, self.enemy.y_pos)
 
         self.flip()
 
     def run(self):
         while self.alive == 1:
             self.render()
-            print(f"IN RUN")
-            event = self.dispatch_events()
             self.update()
+            #print(f"IN RUN")
+            event = self.dispatch_events()
 
     def update(self):
         self.enemy.update()
