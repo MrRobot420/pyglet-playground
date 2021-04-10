@@ -3,6 +3,8 @@ from pyglet import clock
 from pyglet.window import mouse
 from pyglet.gl import *
 import random
+
+from pyglet.window.key import SPACE
 from gui.cursor import Cursor as Cursor
 from gui.label import Label as Label
 from objects.enemy import Enemy
@@ -54,6 +56,9 @@ class MainWindow(pyglet.window.Window):
         if symbol == key.ESCAPE:  # [ESC]
             self.alive = 0
 
+        if symbol == key.SPACE:
+            self.cursor.fire()
+
         self.keys[symbol] = True
 
     def render(self):
@@ -70,8 +75,15 @@ class MainWindow(pyglet.window.Window):
                           self.height,
                           self.background)
                 )
+
+                
             enemy.draw(enemy.x_pos, enemy.y_pos)
             enemy.update()
+            if (int(enemy.x_pos) >= self.mouse_x) & (int(enemy.x_pos) <= self.mouse_x + enemy.image_width):
+                print('intersects with x axis of object')
+                if (int(enemy.y_pos) >= int(self.mouse_y)) & (int(enemy.y_pos) <= self.mouse_y + enemy.image_height):
+                    print('intersects with y axis of object')
+                    self.enemies.pop(index)
 
         self.cursor.draw(self.mouse_x, self.mouse_y)
         self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width - 310, self.height - 36)
