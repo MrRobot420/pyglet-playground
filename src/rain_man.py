@@ -63,13 +63,18 @@ class MainWindow(pyglet.window.Window):
             if enemy.y_pos <= 0:
                 self.enemies.pop(index)
                 self.enemies.append(
-                    Enemy(random.randint(100, 300),
+                    Enemy(random.randint(1, 10),
                           100,
                           random.randint(5, 30),
                           random.randint(1, self.width),
                           self.height,
                           self.background)
                 )
+
+            if self.mouse_x <= int(enemy.x_pos) <= int(self.mouse_x + enemy.image_width):
+                if self.mouse_y <= int(enemy.y_pos) <= int(self.mouse_y + enemy.image_height):
+                    self.enemies.pop(index)
+
             enemy.draw(enemy.x_pos, enemy.y_pos)
             enemy.update()
 
