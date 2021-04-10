@@ -19,9 +19,16 @@ class MainWindow(pyglet.window.Window):
         self.clock = clock
         self.x, self.y = 0, 0
         self.cursor_info = Label(f'x: {self.x}, y: {self.y}', self.width - 50, self.height - 36)
-        self.enemy = Enemy(100, 100, 30, random.randint(1, self.width), self.height, self.background)
-        self.keys = {}
+        self.enemies = []
+        for index in range(10):
+            self.enemies.append(Enemy(random.randint(100, 300),
+                                      100,
+                                      random.randint(5, 30),
+                                      random.randint(1, self.width),
+                                      self.height,
+                                      self.background))
 
+        self.keys = {}
         self.mouse_x = 0
         self.mouse_y = 0
 
@@ -51,22 +58,28 @@ class MainWindow(pyglet.window.Window):
 
     def render(self):
         self.clear()
+
+        for index, enemy in enumerate(self.enemies):
+            if enemy.y_pos <= 0:
+                self.enemies.pop(index)
+                self.enemies.append(Enemy(random.randint(100, 300),
+                                          100,
+                                          random.randint(5, 30),
+                                          random.randint(1, self.width),
+                                          self.height,
+                                          self.background))
+            enemy.draw(enemy.x_pos, enemy.y_pos)
+            enemy.update()
+
         self.cursor.draw(self.mouse_x, self.mouse_y)
         self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width - 310, self.height - 36)
         self.cursor_info.draw()
-        self.enemy.draw(self.enemy.x_pos, self.enemy.y_pos)
-
         self.flip()
 
     def run(self):
         while self.alive == 1:
             self.render()
-            self.update()
-            #print(f"IN RUN")
             event = self.dispatch_events()
-
-    def update(self):
-        self.enemy.update()
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+import random
+
 from pyglet import shapes, clock
 
 
@@ -18,4 +20,4 @@ class Enemy:
 
     def update(self):
         print(f"Enemy last update: {self.clock.tick()}")
-        self.y_pos -= self.speed * 10 * self.clock.tick()
+        self.y_pos -= self.speed * 1000 * self.clock.tick()
