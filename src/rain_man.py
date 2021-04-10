@@ -22,6 +22,7 @@ class MainWindow(pyglet.window.Window):
         self.x, self.y = 0, 0
         self.cursor_info = Label(f'x: {self.x}, y: {self.y}', self.width - 50, self.height - 36)
         self.enemies = []
+        self.score = 0
         for index in range(10):
             self.enemies.append(Enemy(random.randint(100, 300),
                                       100,
@@ -79,11 +80,19 @@ class MainWindow(pyglet.window.Window):
                 
             enemy.draw(enemy.x_pos, enemy.y_pos)
             enemy.update()
-            if (int(enemy.x_pos) >= self.mouse_x) & (int(enemy.x_pos) <= self.mouse_x + enemy.image_width):
-                print('intersects with x axis of object')
-                if (int(enemy.y_pos) >= int(self.mouse_y)) & (int(enemy.y_pos) <= self.mouse_y + enemy.image_height):
-                    print('intersects with y axis of object')
+            if (int(enemy.x_pos) >= self.mouse_x) & (int(enemy.x_pos) <= self.mouse_x + (enemy.image_width * enemy.scale)):
+                # print('intersects with x axis of object')
+                if (int(enemy.y_pos) >= int(self.mouse_y)) & (int(enemy.y_pos) <= self.mouse_y + (enemy.image_height * enemy.scale)):
+                    # print('intersects with y axis of object')
                     self.enemies.pop(index)
+                    self.score += 1
+                    # self.score.updateScore()
+                    
+            # if self.mouse_x <= int(enemy.x_pos) <= int(self.mouse_x + enemy.image_width):
+            #     if self.mouse_y <= int(enemy.y_pos) <= int(self.mouse_y + enemy.image_height):
+            #         self.enemies.pop(index)
+            #         # print('intersects with x axis of object')
+            #         self.score += 1
 
         self.cursor.draw(self.mouse_x, self.mouse_y)
         self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width - 310, self.height - 36)
