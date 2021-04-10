@@ -2,6 +2,7 @@ import time
 import pyglet
 from pyglet.window import mouse
 from pyglet.gl import *
+from cursor import Cursor
 
 key = pyglet.window.key
 
@@ -9,11 +10,8 @@ class MainWindow(pyglet.window.Window):
     def __init__(self, *args, **kwrgs):
         super().__init__(*args, **kwrgs)
         pyglet.gl.glClearColor(0.9,0.9,0.9,1)
-        self.image = pyglet.image.load('./resources/cursor/red_cross.png')
         self.background = pyglet.graphics.Batch()
-        self.cursor = pyglet.sprite.Sprite(self.image, 0, 0)
-        self.image_width = self.image.width
-        self.image_height = self.image.height
+        self.cursor = Cursor(self.background)
 
         self.x, self.y = 0, 0
 
@@ -49,12 +47,7 @@ class MainWindow(pyglet.window.Window):
 
     def render(self):
         self.clear()
-        scale = 0.07
-        width = (self.image_width * scale) / 2
-        height = (self.image_height * scale) / 2
-        self.cursor = pyglet.sprite.Sprite(self.image, self.mouse_x-width, self.mouse_y-height, batch=self.background)
-        self.cursor.scale = scale
-        self.cursor.draw()
+        self.cursor.draw(self.mouse_x, self.mouse_y)
 
         self.flip()
     
