@@ -2,7 +2,9 @@ import time
 import pyglet
 from pyglet.window import mouse
 from pyglet.gl import *
+
 from cursor import Cursor
+from label import Label
 
 key = pyglet.window.key
 
@@ -14,6 +16,7 @@ class MainWindow(pyglet.window.Window):
         self.cursor = Cursor(self.background)
 
         self.x, self.y = 0, 0
+        self.cursor_info = Label(f'x: {self.x}, y: {self.y}', self.width -50, self.height -36)
 
         self.keys = {}
 
@@ -48,6 +51,8 @@ class MainWindow(pyglet.window.Window):
     def render(self):
         self.clear()
         self.cursor.draw(self.mouse_x, self.mouse_y)
+        self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width -300, self.height -36)
+        self.cursor_info.draw()
 
         self.flip()
     
