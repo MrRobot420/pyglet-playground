@@ -1,10 +1,9 @@
-import time
 import pyglet
 from pyglet.window import mouse
 from pyglet.gl import *
 
-from cursor import Cursor
-from label import Label
+from gui.cursor import Cursor as Cursor
+from gui.label import Label as Label
 
 key = pyglet.window.key
 
