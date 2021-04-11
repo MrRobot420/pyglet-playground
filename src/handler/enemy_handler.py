@@ -7,10 +7,10 @@ class EnemyHandler():
         self.screen_height = screen_height
         self.background = background
         self.enemies = []
-        self.generate_enemies() # spawn enemies
         self.mouse_x = 0
         self.mouse_y = 0
         self.score = 0
+        self.generate_enemies() # spawn enemies
 
 
     def handle_enemies(self, mouse_x, mouse_y, score):

@@ -24,12 +24,9 @@ class Enemy:
         width = self.image_width / 2
         height = self.image_height / 2
         self.enemie_sprite = pyglet.sprite.Sprite(self.image, x - width, y - height, batch=self.background)
-        # square = shapes.Rectangle(x, y, self.size, self.size, color=(55, 55, 2), batch=self.background)
-        # square.draw()
         self.enemie_sprite.scale = self.scale
         self.enemie_sprite.draw()
         pass
 
     def update(self):
-        # print(f"Enemy last update: {self.clock.tick()}")
         self.y_pos -= self.speed * 2 * self.clock.tick()
