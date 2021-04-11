@@ -18,9 +18,3 @@ class Cursor():
         self.cursor_sprite = pyglet.sprite.Sprite(self.image, mouse_x-width, mouse_y-height, batch=self.background)
         self.cursor_sprite.scale = scale
         self.cursor_sprite.draw()
-
-    def fire(self):
-        self.was_clicked = True
-
-    def collides_with(self):
-        pass
