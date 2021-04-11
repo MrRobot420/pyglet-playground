@@ -1,10 +1,8 @@
 import pyglet
 from pyglet import clock
-from pyglet.window import mouse
 from pyglet.gl import *
 import random
 
-from pyglet.window.key import SPACE
 from gui.cursor import Cursor
 from gui.label import Label
 from gui.score import ScoreLabel
