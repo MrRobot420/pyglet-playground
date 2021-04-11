@@ -17,12 +17,20 @@ class MainWindow(pyglet.window.Window):
         pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
         self.background = pyglet.graphics.Batch()
         self.cursor = Cursor(self.background)
-        self.clock = clock
         self.x, self.y = 0, 0
         self.cursor_info = Label(f'x: {self.x}, y: {self.y}', self.width - 50, self.height - 36)
         self.enemies = []
         self.score = ScoreLabel(0 + 5, self.height - 40)
-        for index in range(10):
+
+        self.keys = {}
+        self.mouse_x = 0
+        self.mouse_y = 0
+
+        self.alive = 1
+        self.generate_enemies() # spawn enemies
+
+    def generate_enemies(self, amount=10):
+        for index in range(amount):
             self.enemies.append(Enemy(random.randint(100, 300),
                                       100,
                                       random.randint(5, 30),
@@ -30,14 +38,26 @@ class MainWindow(pyglet.window.Window):
                                       self.height,
                                       self.background))
 
-        self.keys = {}
-        self.mouse_x = 0
-        self.mouse_y = 0
+    def adjust_enemy_position(self, enemy, index):
+        if enemy.y_pos <= 0:
+            self.enemies.pop(index)
+            self.enemies.append(
+                Enemy(random.randint(100, 300),
+                        100,
+                        random.randint(5, 30),
+                        random.randint(1, self.width),
+                        self.height,
+                        self.background)
+            )
+        else:
+            enemy.draw(enemy.x_pos, enemy.y_pos)
+            enemy.update()
 
-        self.alive = 1
-
-    def on_draw(self):
-        self.render()
+    def check_for_collisions(self, enemy, index):
+        if (int(enemy.x_pos) >= self.mouse_x) & (int(enemy.x_pos) <= self.mouse_x + (enemy.image_width * enemy.scale)):
+            if (int(enemy.y_pos) >= int(self.mouse_y)) & (int(enemy.y_pos) <= self.mouse_y + (enemy.image_height * enemy.scale)):
+                self.enemies.pop(index)
+                self.score.updateScore()
 
     def on_close(self):
         self.alive = 0
@@ -63,28 +83,10 @@ class MainWindow(pyglet.window.Window):
 
     def render(self):
         self.clear()
-
         for index, enemy in enumerate(self.enemies):
-            if enemy.y_pos <= 0:
-                self.enemies.pop(index)
-                self.enemies.append(
-                    Enemy(random.randint(100, 300),
-                          100,
-                          random.randint(5, 30),
-                          random.randint(1, self.width),
-                          self.height,
-                          self.background)
-                )
-                
-            enemy.draw(enemy.x_pos, enemy.y_pos)
-            enemy.update()
-            if (int(enemy.x_pos) >= self.mouse_x) & (int(enemy.x_pos) <= self.mouse_x + (enemy.image_width * enemy.scale)):
-                # print('intersects with x axis of object')
-                if (int(enemy.y_pos) >= int(self.mouse_y)) & (int(enemy.y_pos) <= self.mouse_y + (enemy.image_height * enemy.scale)):
-                    # print('intersects with y axis of object')
-                    self.enemies.pop(index)
-                    self.score.updateScore()
-                    # self.score.updateScore()
+            self.adjust_enemy_position(enemy, index)
+            self.check_for_collisions(enemy, index)
+
         self.score.draw()
         self.cursor.draw(self.mouse_x, self.mouse_y)
         self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width - 310, self.height - 36)
