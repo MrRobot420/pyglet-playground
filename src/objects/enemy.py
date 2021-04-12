@@ -28,5 +28,5 @@ class Enemy:
         self.enemie_sprite.draw()
         pass
 
-    def update(self):
-        self.y_pos -= self.speed * 2 * self.clock.tick()
+    def update(self, dt):
+        self.y_pos -= self.speed * dt

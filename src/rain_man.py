@@ -58,7 +58,7 @@ class MainWindow(pyglet.window.Window):
 
     def render(self, dt):
         self.clear()
-        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.score)
+        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.score, dt)
 
         self.score.draw()
         self.cursor.draw(self.mouse_x, self.mouse_y)
