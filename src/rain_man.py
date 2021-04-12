@@ -26,6 +26,11 @@ class MainWindow(pyglet.window.Window):
         self.mouse_y = 0
 
         self.alive = 1
+
+    
+    def on_draw(self):
+        dt = pyglet.clock.tick()
+        self.render(dt)
     
 
     def on_close(self):
@@ -48,15 +53,12 @@ class MainWindow(pyglet.window.Window):
         if symbol == key.ESCAPE:  # [ESC]
             self.alive = 0
 
-        if symbol == key.SPACE:
-            self.cursor.fire()
-
         self.keys[symbol] = True
 
 
-    def render(self):
+    def render(self, dt):
         self.clear()
-        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.score)
+        self.enemy_handler.handle_enemies(self.cursor.x, self.cursor.y, self.score, dt)
 
         self.score.draw()
         self.cursor.draw(self.mouse_x, self.mouse_y)
@@ -64,14 +66,15 @@ class MainWindow(pyglet.window.Window):
         self.cursor_info.draw()
         self.flip()
 
-
-    def run(self):
+    def update(self, dt):
         while self.alive == 1:
-            self.render()
-            event = self.dispatch_events()
+            self.render(dt)
+            self.dispatch_events()
+        self.close()
 
 
 if __name__ == '__main__':
     game_window = MainWindow(1280, 960, 'Game Name', resizable=True)
+    pyglet.clock.schedule_interval(game_window.update, 1/60.0)
     game_window.set_mouse_visible(False)  # Hide the mouse cursor
-    game_window.run()
+    pyglet.app.run()
