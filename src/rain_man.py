@@ -27,8 +27,10 @@ class MainWindow(pyglet.window.Window):
 
         self.alive = 1
 
-    # def on_draw(self):
-    #     pass
+    
+    def on_draw(self):
+        dt = pyglet.clock.tick()
+        self.render(dt)
     
 
     def on_close(self):
@@ -56,7 +58,7 @@ class MainWindow(pyglet.window.Window):
 
     def render(self, dt):
         self.clear()
-        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y + dt, self.score)
+        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.score)
 
         self.score.draw()
         self.cursor.draw(self.mouse_x, self.mouse_y)
@@ -68,6 +70,7 @@ class MainWindow(pyglet.window.Window):
         while self.alive == 1:
             self.render(dt)
             self.dispatch_events()
+        self.close()
 
 
 if __name__ == '__main__':
