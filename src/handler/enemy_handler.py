@@ -49,7 +49,7 @@ class EnemyHandler():
 
 
     def check_for_collisions(self, enemy, index):
-        if (int(enemy.x_pos) >= self.mouse_x) & (int(enemy.x_pos) <= self.mouse_x + (enemy.image_width * enemy.scale)):
-            if (int(enemy.y_pos) >= int(self.mouse_y)) & (int(enemy.y_pos) <= self.mouse_y + (enemy.image_height * enemy.scale)):
+        if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width * enemy.scale)):
+            if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height * enemy.scale)):
                 self.enemies.pop(index)
                 self.score.updateScore()

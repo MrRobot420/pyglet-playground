@@ -21,9 +21,9 @@ class Enemy:
         self.image_height = self.image.height * self.scale
 
     def draw(self, x, y):
-        width = self.image_width / 2
-        height = self.image_height / 2
-        self.enemie_sprite = pyglet.sprite.Sprite(self.image, x - width, y - height, batch=self.background)
+        # width = self.image_width / 2
+        # height = self.image_height / 2
+        self.enemie_sprite = pyglet.sprite.Sprite(self.image, x, y, batch=self.background)
         self.enemie_sprite.scale = self.scale
         self.enemie_sprite.draw()
         pass
