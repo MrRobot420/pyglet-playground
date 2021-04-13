@@ -19,5 +19,8 @@ class Hitbox:
         # self.hitbox_sprite = pyglet.sprite.Sprite(self.hitbox, x, y, batch=self.background)
         self.hitbox_rect.draw()
 
-    def update(self, dt):
-        self.y_pos -= self.speed * dt
+    def adjust_hitbox_position(self, enemy, hitbox, index, diff):
+        if hitbox.y_pos <= 0:
+            self.hitboxes.pop(index)
+        else:
+            hitbox.draw(enemy.x_pos + diff, enemy.y_pos + diff)

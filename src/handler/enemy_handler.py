@@ -2,6 +2,7 @@ import random
 from objects.enemy import Enemy
 from objects.hitbox import Hitbox
 
+HITBOX_ENABLED = False
 class EnemyHandler():
     def __init__(self, screen_width, screen_height, background):
         self.screen_width = screen_width
@@ -21,12 +22,17 @@ class EnemyHandler():
         self.mouse_y = mouse_y
         self.score = score
         for index, enemy in enumerate(self.enemies):
-            hitbox = self.hitboxes[index]
-            inner_hitbox = self.inner_hitboxes[index]
-            self.adjust_hitbox_position(enemy, hitbox, index, -5)
-            self.adjust_hitbox_position(enemy, inner_hitbox, index, 0)
+            if HITBOX_ENABLED:
+                self.handle_hitboxes(enemy, index)
             self.adjust_enemy_position(enemy, index, dt)
             self.check_for_collisions(enemy, index)
+
+    
+    def handle_hitboxes(self, enemy, index):
+        hitbox = self.hitboxes[index]
+        inner_hitbox = self.inner_hitboxes[index]
+        hitbox.adjust_hitbox_position(enemy, hitbox, index, -2)
+        inner_hitbox.adjust_hitbox_position(enemy, inner_hitbox, index, 0)
 
 
     def generate_enemies(self, amount=100):
@@ -35,9 +41,15 @@ class EnemyHandler():
             x = random.randint(1, self.screen_width)
             y = self.screen_height
             newEnemy = Enemy(enemySpeed, 100, x, y, self.background)
-            self.hitboxes.append(Hitbox(enemySpeed, newEnemy.image_width + 10, newEnemy.image_height + 10, x - 5, y - 5, self.background, (255, 55, 55)))
-            self.inner_hitboxes.append(Hitbox(enemySpeed, newEnemy.image_width, newEnemy.image_height, x, y, self.background, (240, 240, 240)))
+            if HITBOX_ENABLED:
+                self.generate_hitbox_for_enemy(newEnemy)
             self.enemies.append(newEnemy)
+
+    
+    def generate_hitbox_for_enemy(self, newEnemy):
+        self.hitboxes.append(Hitbox(newEnemy.speed, newEnemy.image_width + 4, newEnemy.image_height + 4, newEnemy.x_pos - 5, newEnemy.y_pos - 5, self.background, (255, 100, 120)))
+        self.inner_hitboxes.append(Hitbox(newEnemy.speed, newEnemy.image_width, newEnemy.image_height, newEnemy.x_pos, newEnemy.y_pos, self.background, (230, 230, 230)))
+
 
 
     def adjust_enemy_position(self, enemy, index, dt):
@@ -46,14 +58,6 @@ class EnemyHandler():
         else:
             enemy.draw(enemy.x_pos, enemy.y_pos)
             enemy.update(dt)
-
-    
-    def adjust_hitbox_position(self, enemy, hitbox, index, diff):
-        if hitbox.y_pos <= 0:
-            self.hitboxes.pop(index)
-        else:
-            hitbox.draw(enemy.x_pos + diff, enemy.y_pos + diff)
-            
 
 
     def check_for_collisions(self, enemy, index):
