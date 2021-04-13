@@ -26,7 +26,6 @@ class EnemyHandler():
         for index in range(amount):
             self.enemies.append(Enemy(random.randint(1, 10),
                                       100,
-                                      random.randint(5, 30),
                                       random.randint(1, self.screen_width),
                                       self.screen_height,
                                       self.background))
@@ -38,7 +37,6 @@ class EnemyHandler():
             self.enemies.append(
                 Enemy(random.randint(1, 10),
                         100,
-                        random.randint(5, 30),
                         random.randint(1, self.screen_width),
                         self.screen_height,
                         self.background)
@@ -49,7 +47,7 @@ class EnemyHandler():
 
 
     def check_for_collisions(self, enemy, index):
-        if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width * enemy.scale)):
-            if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height * enemy.scale)):
+        if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width)):
+            if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height)):
                 self.enemies.pop(index)
                 self.score.updateScore()
