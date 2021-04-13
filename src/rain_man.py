@@ -14,18 +14,18 @@ class MainWindow(pyglet.window.Window):
         super().__init__(*args, **kwrgs, vsync=False)
         pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
         self.background = pyglet.graphics.Batch()
-        self.cursor = Cursor(self.background)
         self.x, self.y = 0, 0
+        
+        self.cursor = Cursor(self.background)
         self.cursor_info = Label(f'x: {self.x}, y: {self.y}', self.width - 50, self.height - 36)
-        self.enemies = []
         self.score = ScoreLabel(0 + 5, self.height - 40)
         self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
 
         self.keys = {}
         self.mouse_x = 0
         self.mouse_y = 0
-
         self.alive = 1
+        self.enemies = []
 
     
     def on_draw(self):
@@ -34,6 +34,7 @@ class MainWindow(pyglet.window.Window):
     
 
     def on_close(self):
+        self.enemies = []
         self.alive = 0
 
 
@@ -51,6 +52,7 @@ class MainWindow(pyglet.window.Window):
 
     def on_key_press(self, symbol, modifiers):
         if symbol == key.ESCAPE:  # [ESC]
+            self.enemies = []
             self.alive = 0
 
         self.keys[symbol] = True
@@ -58,7 +60,7 @@ class MainWindow(pyglet.window.Window):
 
     def render(self, dt):
         self.clear()
-        self.enemy_handler.handle_enemies(self.cursor.x, self.cursor.y, self.score, dt)
+        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.score, dt)
 
         self.score.draw()
         self.cursor.draw(self.mouse_x, self.mouse_y)
