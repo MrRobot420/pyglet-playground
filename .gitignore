@@ -4,3 +4,6 @@
 /src/resources/.DS_Store
 /src/.DS_Store
 /venv/
+/src/__pycache__
+/src/gui/__pycache__
+/src/handler/__pycache__
