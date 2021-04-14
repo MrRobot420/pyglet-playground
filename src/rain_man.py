@@ -16,8 +16,8 @@ class MainWindow(pyglet.window.Window):
         self.x, self.y = 0, 0
         
         self.cursor = Cursor(self.background)
-        self.hud = HUD(self.width, self.height)
         self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
+        self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies))
 
         self.keys = {}
         self.mouse_x = 0

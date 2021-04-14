@@ -36,7 +36,7 @@ class EnemyHandler():
 
 
     def generate_enemies(self, amount=100):
-        for index in range(amount):
+        for _ in range(amount):
             enemySpeed = random.randint(1, 100)
             x = random.randint(1, self.screen_width)
             y = self.screen_height
@@ -63,4 +63,4 @@ class EnemyHandler():
         if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width)):
             if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height)):
                 self.enemies.pop(index)
-                self.hud.score.updateScore()
+                self.hud.update()
