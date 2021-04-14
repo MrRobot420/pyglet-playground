@@ -36,9 +36,10 @@ class EnemyHandler():
 
 
     def generate_enemies(self, amount=100):
+        dummy_enemy = Enemy(0, 100, 1, 1, self.background)
         for _ in range(amount):
             enemySpeed = random.randint(1, 100)
-            x = random.randint(1, self.screen_width)
+            x = random.randint(1, self.screen_width - int(dummy_enemy.image_width))
             y = self.screen_height
             newEnemy = Enemy(enemySpeed, 100, x, y, self.background)
             if HITBOX_ENABLED:

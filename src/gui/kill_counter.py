@@ -10,7 +10,7 @@ class KillCounter(pyglet.text.Label):
         self.killed = 0
 
     def draw(self):
-        self.counter = Label(f'({self.killed}/{self.enemy_amount})', self.x, self.y)
+        self.counter = Label(f'({self.killed}/{self.enemy_amount})', self.x, self.y, (1, 20, 210, 140))
         self.counter.draw()
 
     def update_counter(self):

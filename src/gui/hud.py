@@ -7,7 +7,7 @@ class HUD:
         self.height = height
         
         self.score = ScoreLabel(0 + 5, self.height - 40)
-        self.kill_count = KillCounter(enemy_count, self.width - 150, self.height - 40)
+        self.kill_count = KillCounter(enemy_count, self.width - 200, self.height - 40)
 
     def draw(self):
         self.score.draw()
