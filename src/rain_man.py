@@ -2,8 +2,7 @@ import pyglet
 from pyglet.gl import *
 
 from gui.cursor import Cursor
-from gui.label import Label
-from gui.score import ScoreLabel
+from gui.hud import HUD
 from handler.enemy_handler import EnemyHandler
 
 key = pyglet.window.key
@@ -17,8 +16,7 @@ class MainWindow(pyglet.window.Window):
         self.x, self.y = 0, 0
         
         self.cursor = Cursor(self.background)
-        self.cursor_info = Label(f'x: {self.x}, y: {self.y}', self.width - 50, self.height - 36)
-        self.score = ScoreLabel(0 + 5, self.height - 40)
+        self.hud = HUD(self.width, self.height)
         self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
 
         self.keys = {}
@@ -60,12 +58,10 @@ class MainWindow(pyglet.window.Window):
 
     def render(self, dt):
         self.clear()
-        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.score, dt)
+        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.hud, dt)
 
-        self.score.draw()
+        self.hud.draw()
         self.cursor.draw(self.mouse_x, self.mouse_y)
-        self.cursor_info = Label(f'x: {self.mouse_x}, y: {self.mouse_y}', self.width - 310, self.height - 36)
-        self.cursor_info.draw()
         self.flip()
 
     def update(self, dt):
