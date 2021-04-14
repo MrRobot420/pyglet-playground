@@ -17,10 +17,10 @@ class EnemyHandler():
         self.generate_enemies() # spawn enemies
 
 
-    def handle_enemies(self, mouse_x, mouse_y, score, dt):
+    def handle_enemies(self, mouse_x, mouse_y, hud, dt):
         self.mouse_x = mouse_x
         self.mouse_y = mouse_y
-        self.score = score
+        self.hud = hud
         for index, enemy in enumerate(self.enemies):
             if HITBOX_ENABLED:
                 self.handle_hitboxes(enemy, index)
@@ -36,9 +36,10 @@ class EnemyHandler():
 
 
     def generate_enemies(self, amount=100):
-        for index in range(amount):
+        dummy_enemy = Enemy(0, 100, 1, 1, self.background)
+        for _ in range(amount):
             enemySpeed = random.randint(1, 100)
-            x = random.randint(1, self.screen_width)
+            x = random.randint(1, self.screen_width - int(dummy_enemy.image_width))
             y = self.screen_height
             newEnemy = Enemy(enemySpeed, 100, x, y, self.background)
             if HITBOX_ENABLED:
@@ -49,7 +50,6 @@ class EnemyHandler():
     def generate_hitbox_for_enemy(self, newEnemy):
         self.hitboxes.append(Hitbox(newEnemy.speed, newEnemy.image_width + 4, newEnemy.image_height + 4, newEnemy.x_pos - 5, newEnemy.y_pos - 5, self.background, (255, 100, 120)))
         self.inner_hitboxes.append(Hitbox(newEnemy.speed, newEnemy.image_width, newEnemy.image_height, newEnemy.x_pos, newEnemy.y_pos, self.background, (230, 230, 230)))
-
 
 
     def adjust_enemy_position(self, enemy, index, dt):
@@ -64,4 +64,4 @@ class EnemyHandler():
         if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width)):
             if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height)):
                 self.enemies.pop(index)
-                self.score.updateScore()
+                self.hud.update()
