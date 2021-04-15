@@ -9,21 +9,19 @@ key = pyglet.window.key
 
 
 class MainWindow(pyglet.window.Window):
-    def __init__(self, *args, **kwrgs):
+    def __init__(self, cursor, enemy_handler, hud, *args, **kwrgs, ):
         super().__init__(*args, **kwrgs, vsync=False)
         pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
-        self.background = pyglet.graphics.Batch()
         self.x, self.y = 0, 0
         
-        self.cursor = Cursor(self.background)
-        self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
-        self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies))
+        self.cursor = cursor
+        self.enemy_handler = enemy_handler
+        self.hud = hud
 
         self.keys = {}
         self.mouse_x = 0
         self.mouse_y = 0
         self.alive = 1
-        self.enemies = []
 
     
     def on_draw(self):
@@ -32,7 +30,7 @@ class MainWindow(pyglet.window.Window):
     
 
     def on_close(self):
-        self.enemies = []
+        self.enemy_handler.enemies = []
         self.alive = 0
 
 
@@ -50,7 +48,7 @@ class MainWindow(pyglet.window.Window):
 
     def on_key_press(self, symbol, modifiers):
         if symbol == key.ESCAPE:  # [ESC]
-            self.enemies = []
+            self.enemy_handler.enemies = []
             self.alive = 0
 
         self.keys[symbol] = True
