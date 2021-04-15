@@ -4,7 +4,6 @@ from gui.main_window import MainWindow
 from gui.elements.cursor import Cursor
 from gui.hud.hud import HUD
 from handler.enemy_handler import EnemyHandler
-from handler.game_event_handler import GameEventHandler
 
 class Game:
     def __init__(self):

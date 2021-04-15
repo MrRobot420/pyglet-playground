@@ -1,7 +1,7 @@
 import pyglet
 from pyglet.gl import *
 
-from handler.game_event_handler import GameEventHandler
+from handler.event_handler import GameEventHandler
 
 class MainWindow(pyglet.window.Window):
     def __init__(self, cursor, enemy_handler, hud, *args, **kwrgs):
@@ -13,9 +13,8 @@ class MainWindow(pyglet.window.Window):
 
         self.mouse_x = 0
         self.mouse_y = 0
-        self.alive = 1
 
-        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates, self.alive)
+        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates)
         self.push_handlers(self.game_event_handler)
 
 

@@ -3,9 +3,9 @@ import pyglet
 key = pyglet.window.key
 
 class GameEventHandler:
-    def __init__(self, upd_coords, alive):
+    def __init__(self, upd_coords):
         self.keys = {}
-        self.alive = alive
+        self.alive = 1
         self.update_mouse_coordinates = upd_coords
     
 
