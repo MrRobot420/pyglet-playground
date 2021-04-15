@@ -1,8 +1,8 @@
 import pyglet
 from pyglet.gl import *
 
-from gui.cursor import Cursor
-from gui.hud import HUD
+from gui.elements.cursor import Cursor
+from gui.hud.hud import HUD
 from handler.enemy_handler import EnemyHandler
 
 key = pyglet.window.key

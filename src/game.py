@@ -1,5 +1,5 @@
 import pyglet
-from main_window import MainWindow
+from gui.main_window import MainWindow
 
 if __name__ == '__main__':
     game_window = MainWindow(1280, 960, 'Game Name', resizable=True)

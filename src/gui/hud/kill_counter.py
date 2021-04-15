@@ -1,5 +1,5 @@
 import pyglet
-from .label import Label
+from gui.elements.label import Label
 
 class KillCounter(pyglet.text.Label):
     def __init__(self, enemy_count, x, y, color=(55, 160, 55, 255)):
