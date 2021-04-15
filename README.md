@@ -3,7 +3,7 @@
 ### How to play this game
  - create venv using virtaulenv
  - activate env and run ````pip install -r requirements.txt````
- - then from your projects root ```` cd src && python rain_main.py````
+ - then from your projects root ```` cd src && python game.py````
 
 ## 10.04.2021:
 
