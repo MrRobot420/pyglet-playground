@@ -15,5 +15,5 @@ class HUD:
         self.kill_count.draw()
 
     def update(self):
-        self.score.updateScore()
+        self.score.update_score()
         self.kill_count.update_counter()
