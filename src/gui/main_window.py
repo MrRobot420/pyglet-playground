@@ -16,7 +16,7 @@ class MainWindow(pyglet.window.Window):
         self.mouse_x = 0
         self.mouse_y = 0
 
-        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates, self.toggle_menu)
+        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates, self.toggle_menu, self.mouse_click_tracker)
         self.push_handlers(self.game_event_handler)
 
     
@@ -28,6 +28,11 @@ class MainWindow(pyglet.window.Window):
     def toggle_menu(self):
         self.menu_visible = not self.menu_visible
 
+    
+    def mouse_click_tracker(self, x, y):
+        if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
+            # TODO: start (new) game.
+            pass
 
     def on_draw(self):
         dt = pyglet.clock.tick()
