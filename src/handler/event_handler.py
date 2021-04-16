@@ -3,10 +3,11 @@ import pyglet
 key = pyglet.window.key
 
 class GameEventHandler:
-    def __init__(self, upd_coords):
+    def __init__(self, upd_coords, menu_toggler):
         self.keys = {}
         self.alive = 1
         self.update_mouse_coordinates = upd_coords
+        self.toggle_menu = menu_toggler
     
 
     def on_close(self):
@@ -27,5 +28,7 @@ class GameEventHandler:
     def on_key_press(self, symbol, modifiers):
         if symbol == key.ESCAPE:  # [ESC]
             self.alive = 0
+        if symbol == key.TAB:
+            self.toggle_menu()
 
         self.keys[symbol] = True

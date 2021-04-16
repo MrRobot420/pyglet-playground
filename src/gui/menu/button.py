@@ -1,5 +1,3 @@
-import pyglet
-
 from gui.elements.label import Label
 from pyglet.shapes import Rectangle
 

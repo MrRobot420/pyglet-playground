@@ -16,13 +16,17 @@ class MainWindow(pyglet.window.Window):
         self.mouse_x = 0
         self.mouse_y = 0
 
-        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates)
+        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates, self.toggle_menu)
         self.push_handlers(self.game_event_handler)
 
-
+    
     def update_mouse_coordinates(self, x, y):
         self.mouse_x = x
         self.mouse_y = y
+
+
+    def toggle_menu(self):
+        self.menu_visible = not self.menu_visible
 
 
     def on_draw(self):
