@@ -17,3 +17,8 @@ class ScoreLabel(pyglet.text.Label):
         self.value += points
         self.text = f'Score: {self.value}'
         self.draw()
+
+    def reset_score(self):
+        self.value = 0
+        self.text = f'Score: {self.value}'
+        self.draw()

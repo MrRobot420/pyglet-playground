@@ -18,7 +18,7 @@ class Game:
         self.pause_menu = Menu(self.width, self.height)
         # TODO: add settings file where width, height etc can be stored?
 
-        self.game_window = MainWindow(self.cursor, self.enemy_handler, self.hud, self.pause_menu, self.width, self.height, 'Shoot Em’ Up!', resizable=True)
+        self.game_window = MainWindow(self.cursor, self.enemy_handler, self.hud, self.pause_menu, self.background, self.width, self.height, 'Shoot Em’ Up!', resizable=True)
         self.game_window.set_mouse_visible(False)  # Hide the mouse cursor
 
         pyglet.clock.schedule_interval(self.game_window.update, 1/60.0)

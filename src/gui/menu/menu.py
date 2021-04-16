@@ -20,6 +20,5 @@ class Menu:
     def button_was_clicked(self, x, y, button):
         if (x >= int(button.x)) and (self.x <= int(button.x) + (self.button_width)):
             if (y >= int(button.y)) and (y <= int(button.y) + (self.button_height)):
-                print('user clicked button.')
                 return True
         return False

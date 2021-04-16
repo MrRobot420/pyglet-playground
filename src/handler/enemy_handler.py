@@ -4,7 +4,7 @@ from objects.enemy import Enemy
 from objects.hitbox import Hitbox
 from handler.hitbox_handler import HitboxHandler
 
-HITBOX_ENABLED = True
+HITBOX_ENABLED = False
 class EnemyHandler():
     def __init__(self, screen_width, screen_height, background):
         self.screen_width = screen_width

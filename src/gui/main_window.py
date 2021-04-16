@@ -1,10 +1,12 @@
 import pyglet
 from pyglet.gl import *
 
+from gui.hud.hud import HUD
 from handler.event_handler import GameEventHandler
+from handler.enemy_handler import EnemyHandler
 
 class MainWindow(pyglet.window.Window):
-    def __init__(self, cursor, enemy_handler, hud, pause_menu, *args, **kwrgs):
+    def __init__(self, cursor, enemy_handler, hud, pause_menu, background, *args, **kwrgs):
         super().__init__(*args, **kwrgs, vsync=False)
         pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
         self.cursor = cursor
@@ -12,6 +14,7 @@ class MainWindow(pyglet.window.Window):
         self.hud = hud
         self.pause_menu = pause_menu
         self.menu_visible = True
+        self.background = background
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -32,7 +35,11 @@ class MainWindow(pyglet.window.Window):
     def mouse_click_tracker(self, x, y):
         if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
             # TODO: start (new) game.
-            pass
+            self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
+            self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
+            self.hud.score.reset_score()
+            self.menu_visible = False
+
 
     def on_draw(self):
         dt = pyglet.clock.tick()
