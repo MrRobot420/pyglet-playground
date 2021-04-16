@@ -13,7 +13,12 @@ class ScoreLabel(pyglet.text.Label):
         self.label = pyglet.text.Label(self.text, x=self.x, y=self.y, font_name='Times New Roman', font_size=36, color=self.color)
         self.label.draw()
 
-    def updateScore(self, points=10):
+    def update_score(self, points=10):
         self.value += points
+        self.text = f'Score: {self.value}'
+        self.draw()
+
+    def reset_score(self):
+        self.value = 0
         self.text = f'Score: {self.value}'
         self.draw()

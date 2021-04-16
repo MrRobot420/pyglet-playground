@@ -6,6 +6,7 @@ class Label(pyglet.text.Label):
         self.x = x
         self.y = y
         self.text = text
+        self.color = color
         self.label = pyglet.text.Label(text, x=x, y=y, font_name='Times New Roman', font_size=36, color=color)
 
     def draw(self):
@@ -13,4 +14,4 @@ class Label(pyglet.text.Label):
 
     def update_text(self, text):
         self.text = text
-        self.label = pyglet.text.Label(self.text, self.x, self.y, font_name='Times New Roman', font_size=36, color=(1, 1, 1, 255))
+        self.label = pyglet.text.Label(self.text, self.x, self.y, font_name='Times New Roman', font_size=36, color=self.color)
