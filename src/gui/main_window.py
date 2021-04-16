@@ -38,7 +38,9 @@ class MainWindow(pyglet.window.Window):
             self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
             self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
             self.hud.score.reset_score()
-            self.menu_visible = False
+            self.toggle_menu()
+        if self.pause_menu.button_was_clicked(x, y, self.pause_menu.resume_button):
+            self.toggle_menu()
 
 
     def on_draw(self):
