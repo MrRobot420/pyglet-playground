@@ -4,12 +4,14 @@ from pyglet.gl import *
 from handler.event_handler import GameEventHandler
 
 class MainWindow(pyglet.window.Window):
-    def __init__(self, cursor, enemy_handler, hud, *args, **kwrgs):
+    def __init__(self, cursor, enemy_handler, hud, pause_menu, *args, **kwrgs):
         super().__init__(*args, **kwrgs, vsync=False)
         pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
         self.cursor = cursor
         self.enemy_handler = enemy_handler
         self.hud = hud
+        self.pause_menu = pause_menu
+        self.menu_visible = True
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -30,10 +32,17 @@ class MainWindow(pyglet.window.Window):
 
     def render(self, dt):
         self.clear()
-        self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.hud, dt)
 
-        self.hud.draw()
-        self.cursor.draw(self.mouse_x, self.mouse_y)
+        if not self.menu_visible:
+            self.set_mouse_visible(False)
+            self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.hud, dt)
+
+            self.hud.draw()
+            self.cursor.draw(self.mouse_x, self.mouse_y)
+        else:
+            self.pause_menu.draw()
+            self.set_mouse_visible(True)
+
         self.flip()
 
 
