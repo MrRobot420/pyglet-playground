@@ -21,4 +21,3 @@ class Cursor():
         self.y = mouse_y + height
         self.cursor_sprite = pyglet.sprite.Sprite(self.image, self.x - (width*2), self.y - (height*2), batch=self.background)
         self.cursor_sprite.scale = scale
-        self.cursor_sprite.draw()

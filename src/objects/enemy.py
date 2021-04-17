@@ -19,7 +19,6 @@ class Enemy:
     def draw(self, x, y):
         self.enemy_sprite = pyglet.sprite.Sprite(self.image, x, y, batch=self.background)
         self.enemy_sprite.scale = self.scale
-        self.enemy_sprite.draw()
 
     def update(self, dt):
         self.y_pos -= self.speed * dt

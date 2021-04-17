@@ -13,7 +13,7 @@ class MainWindow(pyglet.window.Window):
         self.hud = hud
         self.pause_menu = pause_menu
         self.menu_visible = True
-        self.background = background
+        self.level_background = background
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -35,7 +35,7 @@ class MainWindow(pyglet.window.Window):
         if self.menu_visible:
             if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
                 # TODO: start (new) game.
-                self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
+                self.enemy_handler = EnemyHandler(self.width, self.height, self.level_background)
                 self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
                 self.hud.score.reset_score()
                 self.toggle_menu()
@@ -57,6 +57,7 @@ class MainWindow(pyglet.window.Window):
 
             self.hud.draw()
             self.cursor.draw(self.mouse_x, self.mouse_y)
+            self.level_background.draw()
         else:
             self.pause_menu.draw()
             self.set_mouse_visible(True)
