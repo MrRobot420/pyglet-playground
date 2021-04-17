@@ -63,9 +63,9 @@ class MainWindow(pyglet.window.Window):
             self.set_mouse_visible(False)
             self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.hud, dt)
 
-            self.hud.draw()
             self.cursor.draw(self.mouse_x, self.mouse_y)
             self.level_background.draw()
+            self.hud.draw()
         else:
             self.pause_menu.draw()
             self.set_mouse_visible(True)
