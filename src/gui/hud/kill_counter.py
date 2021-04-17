@@ -22,3 +22,6 @@ class KillCounter(pyglet.text.Label):
     def reset_counter(self, new_enemy_count):
         self.killed = 0
         self.enemy_amount = new_enemy_count
+
+    def update_enemy_amount(self, amount):
+        self.enemy_amount += amount
