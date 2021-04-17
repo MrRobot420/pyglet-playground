@@ -32,14 +32,15 @@ class MainWindow(pyglet.window.Window):
 
     
     def mouse_click_tracker(self, x, y):
-        if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
-            # TODO: start (new) game.
-            self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
-            self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
-            self.hud.score.reset_score()
-            self.toggle_menu()
-        if self.pause_menu.button_was_clicked(x, y, self.pause_menu.resume_button):
-            self.toggle_menu()
+        if self.menu_visible:
+            if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
+                # TODO: start (new) game.
+                self.enemy_handler = EnemyHandler(self.width, self.height, self.background)
+                self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
+                self.hud.score.reset_score()
+                self.toggle_menu()
+            if self.pause_menu.button_was_clicked(x, y, self.pause_menu.resume_button):
+                self.toggle_menu()
 
 
     def on_draw(self):
