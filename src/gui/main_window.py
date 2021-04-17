@@ -53,6 +53,9 @@ class MainWindow(pyglet.window.Window):
             if self.pause_menu.button_was_clicked(x, y, self.pause_menu.resume_button) and self.level_active:
                 print('RESUME CLICKED')
                 self.toggle_menu()
+            if self.pause_menu.button_was_clicked(x, y, self.pause_menu.quit_button):
+                print('QUIT CLICKED')
+                self.game_event_handler.alive = 0
         if self.end_screen_visible:
             if self.end_screen.button_was_clicked(x, y, self.end_screen.menu_button):
                 print('MENU CLICKED')
@@ -70,6 +73,10 @@ class MainWindow(pyglet.window.Window):
                 self.pause_menu.resume_button.hovered()
             else:
                 self.pause_menu.resume_button.not_hovered()
+            if self.pause_menu.button_was_touched(x, y, self.pause_menu.quit_button):
+                self.pause_menu.quit_button.hovered()
+            else:
+                self.pause_menu.quit_button.not_hovered()
         if self.end_screen_visible:
             if self.end_screen.button_was_touched(x, y, self.end_screen.menu_button):
                 self.end_screen.menu_button.hovered()
@@ -99,11 +106,6 @@ class MainWindow(pyglet.window.Window):
             self.end_screen = EndScreen(self.width, self.height, self.hud.score.value, self.hud.kill_count.killed)
             self.level_active = False
             self.end_screen_visible = True
-
-
-    def on_draw(self):
-        dt = pyglet.clock.tick()
-        self.render(dt)
 
 
     def render(self, dt):

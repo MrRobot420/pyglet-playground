@@ -5,7 +5,7 @@ from objects.hitbox import Hitbox
 from handler.hitbox_handler import HitboxHandler
 
 HITBOX_ENABLED = False
-TEST = True
+TEST = False
 class EnemyHandler():
     def __init__(self, screen_width, screen_height, background, level, increase_level):
         print('spawning enemies.')
