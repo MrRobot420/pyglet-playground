@@ -24,3 +24,10 @@ class Menu:
             if (y >= int(button.y)) and (y <= int(button.y) + (self.button_height)):
                 return True
         return False
+
+
+    def button_was_touched(self, x, y, button):
+        if (x >= int(button.x)) and (x <= int(button.x) + (self.button_width)):
+            if (y >= int(button.y)) and (y <= int(button.y) + (self.button_height)):
+                return True
+        return False

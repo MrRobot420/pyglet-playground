@@ -28,7 +28,7 @@ class MainWindow(pyglet.window.Window):
         self.mouse_x = 0
         self.mouse_y = 0
 
-        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates, self.toggle_menu, self.mouse_click_tracker)
+        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates, self.toggle_menu, self.mouse_click_tracker, self.mouse_motion_tracker)
         self.push_handlers(self.game_event_handler)
 
     
@@ -58,6 +58,23 @@ class MainWindow(pyglet.window.Window):
                 print('MENU CLICKED')
                 self.end_screen_visible = False
                 self.toggle_menu()
+
+    
+    def mouse_motion_tracker(self, x, y):
+        if self.menu_visible:
+            if self.pause_menu.button_was_touched(x, y, self.pause_menu.start_button):
+                self.pause_menu.start_button.hovered()
+            else:
+                self.pause_menu.start_button.not_hovered()
+            if self.pause_menu.button_was_touched(x, y, self.pause_menu.resume_button) and self.level_active:
+                self.pause_menu.resume_button.hovered()
+            else:
+                self.pause_menu.resume_button.not_hovered()
+        if self.end_screen_visible:
+            if self.end_screen.button_was_touched(x, y, self.end_screen.menu_button):
+                self.end_screen.menu_button.hovered()
+            else:
+                self.end_screen.menu_button.not_hovered()
 
 
     def spawn_enemies_for_level(self, level_num=0):
