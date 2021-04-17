@@ -13,8 +13,8 @@ class Menu:
         self.x = (self.win_width / 2) - (self.button_width / 2)
         self.y = (self.win_height / 2) - (self.button_height / 2)
         self.title = Label('M A I N   M E N U', self.x - 40, self.y + 120, (40, 110, 1, 255))
-        self.resume_button = Button(self.button_width, self.button_height, self.x, self.y, 12, 5, 'R E S U M E', (1, 1, 1), (60, 235, 50, 255))
-        self.start_button = Button(self.button_width, self.button_height, self.x, self.y - 80, 6, 5, 'S T A R T', (1, 1, 1), (60, 235, 50, 255))
+        self.start_button = Button(self.button_width, self.button_height, self.x, self.y, 6, 5, 'S T A R T', (1, 1, 1), (60, 235, 50, 255))
+        self.resume_button = Button(self.button_width, self.button_height, self.x, self.y - 80, 12, 5, 'R E S U M E', (1, 1, 1), (60, 235, 50, 255))
         self.quit_button = Button(self.button_width, self.button_height, self.x, self.y - 200, 4, 5, 'Q U I T', (1, 1, 1), (60, 235, 50, 255))
 
     def draw(self):
