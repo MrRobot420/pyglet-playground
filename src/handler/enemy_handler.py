@@ -7,19 +7,20 @@ from handler.hitbox_handler import HitboxHandler
 HITBOX_ENABLED = False
 TEST = False
 class EnemyHandler():
-    def __init__(self, screen_width, screen_height, background, level):
+    def __init__(self, screen_width, screen_height, background, level, increase_level):
         print('spawning enemies.')
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.background = background
         self.enemies = []
-        self.level = level
+        self.current_level = level
 
         self.mouse_x = 0
         self.mouse_y = 0
         self.score = 0
         self.hitbox_handler = HitboxHandler(self.background)
-        self.generate_enemies(self.level) # spawn enemies
+        self.generate_enemies(self.current_level) # spawn enemies
+        self.increase_level = increase_level
 
     def handle_enemies(self, mouse_x, mouse_y, hud, dt):
         self.mouse_x = mouse_x

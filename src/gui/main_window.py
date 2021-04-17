@@ -1,3 +1,4 @@
+import traceback
 import pyglet
 from pyglet.gl import *
 
@@ -6,6 +7,7 @@ from handler.enemy_handler import EnemyHandler
 from gui.hud.hud import HUD
 
 class MainWindow(pyglet.window.Window):
+    # TODO: add settings file where width, height etc can be stored?
     def __init__(self, cursor, levels, pause_menu, background, *args, **kwrgs):
         super().__init__(*args, **kwrgs, vsync=False)
         pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
@@ -13,6 +15,7 @@ class MainWindow(pyglet.window.Window):
         self.levels = levels
         self.current_level = 0
         self.level_background = background
+        self.level_active = False
         self.enemy_handler = self.spawn_enemies_for_level(self.current_level)
 
         self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies))
@@ -39,6 +42,7 @@ class MainWindow(pyglet.window.Window):
         if self.menu_visible:
             if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
                 self.enemy_handler = self.spawn_enemies_for_level()
+                self.current_level = 0
                 self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
                 self.hud.score.reset_score()
                 self.toggle_menu()
@@ -48,7 +52,23 @@ class MainWindow(pyglet.window.Window):
 
     def spawn_enemies_for_level(self, level_num=0):
         # TODO: Load levels from JSON File.
-        return EnemyHandler(self.width, self.height, self.level_background, self.levels[level_num]) # Put current level in it.
+        self.level_active = True
+        return EnemyHandler(self.width, self.height, self.level_background, self.levels[level_num], self.increase_level) # Put current level in it.
+
+    
+    def increase_level(self, current_level):
+        print('Increasing level...')
+        try:
+            self.next_level = current_level + 1
+            self.current_level = self.next_level
+            self.enemy_handler = self.spawn_enemies_for_level(self.next_level)
+            self.hud.kill_count.update_enemy_amount(self.levels[self.next_level]['enemy_amount'])
+        except Exception:
+            # TODO: Add End_Game Message.
+            # traceback.print_exc()
+            print('\nALL LEVELS COMPLETED!')
+            self.menu_visible = True
+
 
 
     def on_draw(self):
@@ -59,7 +79,8 @@ class MainWindow(pyglet.window.Window):
     def render(self, dt):
         self.clear()
 
-        if not self.menu_visible:
+        if not self.menu_visible and self.level_active:
+            self.check_if_level_ended()
             self.set_mouse_visible(False)
             self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.hud, dt)
 
@@ -78,3 +99,9 @@ class MainWindow(pyglet.window.Window):
             self.render(dt)
             self.dispatch_events()
         self.close()
+
+    
+    def check_if_level_ended(self):
+        if len(self.enemy_handler.enemies) < 1:
+            self.level_active = False
+            self.increase_level(self.current_level)

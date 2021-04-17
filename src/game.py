@@ -17,9 +17,7 @@ class Game:
         print(self.levels)
         
         self.cursor = Cursor(self.background)
-        
         self.pause_menu = Menu(self.width, self.height)
-        # TODO: add settings file where width, height etc can be stored?
         self.game_window = MainWindow(self.cursor,
                                       self.levels['levels'],
                                       self.pause_menu, 
