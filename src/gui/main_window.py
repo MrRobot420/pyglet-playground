@@ -1,7 +1,6 @@
 import pyglet
 from pyglet.gl import *
 
-from gui.hud.hud import HUD
 from handler.event_handler import GameEventHandler
 from handler.enemy_handler import EnemyHandler
 
