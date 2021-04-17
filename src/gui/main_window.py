@@ -1,6 +1,7 @@
 import traceback
 import pyglet
 from pyglet.gl import *
+from gui.menu.end_screen import EndScreen
 
 from handler.event_handler import GameEventHandler
 from handler.enemy_handler import EnemyHandler
@@ -21,6 +22,8 @@ class MainWindow(pyglet.window.Window):
         self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies))
         self.pause_menu = pause_menu
         self.menu_visible = True
+        self.end_screen = EndScreen(self.width, self.height, 0, 0)
+        self.end_screen_visible = False
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -41,12 +44,19 @@ class MainWindow(pyglet.window.Window):
     def mouse_click_tracker(self, x, y):
         if self.menu_visible:
             if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
+                print('START CLICKED')
                 self.enemy_handler = self.spawn_enemies_for_level()
                 self.current_level = 0
                 self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
                 self.hud.score.reset_score()
                 self.toggle_menu()
-            if self.pause_menu.button_was_clicked(x, y, self.pause_menu.resume_button):
+            if self.pause_menu.button_was_clicked(x, y, self.pause_menu.resume_button) and self.level_active:
+                print('RESUME CLICKED')
+                self.toggle_menu()
+        if self.end_screen_visible:
+            if self.end_screen.button_was_clicked(x, y, self.end_screen.menu_button):
+                print('MENU CLICKED')
+                self.end_screen_visible = False
                 self.toggle_menu()
 
 
@@ -69,7 +79,9 @@ class MainWindow(pyglet.window.Window):
             # traceback.print_exc()
             print('\nALL LEVELS COMPLETED!')
             self.hud.level_info.reset_level()
-            self.menu_visible = True
+            self.end_screen = EndScreen(self.width, self.height, self.hud.score.value, self.hud.kill_count.killed)
+            self.level_active = False
+            self.end_screen_visible = True
 
 
     def on_draw(self):
@@ -88,6 +100,9 @@ class MainWindow(pyglet.window.Window):
             self.cursor.draw(self.mouse_x, self.mouse_y)
             self.level_background.draw()
             self.hud.draw()
+        elif self.end_screen_visible:
+            self.set_mouse_visible(True)
+            self.end_screen.draw()
         else:
             self.pause_menu.draw()
             self.set_mouse_visible(True)

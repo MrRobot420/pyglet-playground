@@ -5,7 +5,7 @@ from objects.hitbox import Hitbox
 from handler.hitbox_handler import HitboxHandler
 
 HITBOX_ENABLED = False
-TEST = False
+TEST = True
 class EnemyHandler():
     def __init__(self, screen_width, screen_height, background, level, increase_level):
         print('spawning enemies.')
@@ -35,7 +35,7 @@ class EnemyHandler():
     def generate_enemies(self, level):
         dummy_enemy = Enemy(0, 100, 1, 1, self.background, 'axolotl')
         if TEST:
-            for _ in range(100):
+            for _ in range(1):
                 enemy_speed = random.randint(1, 100)
                 x = random.randint(10, self.screen_width - int(dummy_enemy.image_width))
                 y = self.screen_height
