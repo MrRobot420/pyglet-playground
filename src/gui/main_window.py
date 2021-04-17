@@ -57,18 +57,19 @@ class MainWindow(pyglet.window.Window):
 
     
     def increase_level(self, current_level):
-        print('Increasing level...')
+        print(f'Increasing to Level {current_level + 1}')
         try:
             self.next_level = current_level + 1
             self.current_level = self.next_level
             self.enemy_handler = self.spawn_enemies_for_level(self.next_level)
             self.hud.kill_count.update_enemy_amount(self.levels[self.next_level]['enemy_amount'])
+            self.hud.level_info.update_level()
         except Exception:
             # TODO: Add End_Game Message.
             # traceback.print_exc()
             print('\nALL LEVELS COMPLETED!')
+            self.hud.level_info.reset_level()
             self.menu_visible = True
-
 
 
     def on_draw(self):
