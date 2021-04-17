@@ -3,17 +3,21 @@ from pyglet.gl import *
 
 from handler.event_handler import GameEventHandler
 from handler.enemy_handler import EnemyHandler
+from gui.hud.hud import HUD
 
 class MainWindow(pyglet.window.Window):
-    def __init__(self, cursor, enemy_handler, hud, pause_menu, background, *args, **kwrgs):
+    def __init__(self, cursor, levels, pause_menu, background, *args, **kwrgs):
         super().__init__(*args, **kwrgs, vsync=False)
         pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
         self.cursor = cursor
-        self.enemy_handler = enemy_handler
-        self.hud = hud
+        self.levels = levels
+        self.current_level = 0
+        self.level_background = background
+        self.enemy_handler = self.spawn_enemies_for_level(self.current_level)
+
+        self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies))
         self.pause_menu = pause_menu
         self.menu_visible = True
-        self.level_background = background
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -34,13 +38,17 @@ class MainWindow(pyglet.window.Window):
     def mouse_click_tracker(self, x, y):
         if self.menu_visible:
             if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
-                # TODO: start (new) game.
-                self.enemy_handler = EnemyHandler(self.width, self.height, self.level_background)
+                self.enemy_handler = self.spawn_enemies_for_level()
                 self.hud.kill_count.reset_counter(len(self.enemy_handler.enemies))
                 self.hud.score.reset_score()
                 self.toggle_menu()
             if self.pause_menu.button_was_clicked(x, y, self.pause_menu.resume_button):
                 self.toggle_menu()
+
+
+    def spawn_enemies_for_level(self, level_num=0):
+        # TODO: Load levels from JSON File.
+        return EnemyHandler(self.width, self.height, self.level_background, self.levels[level_num]) # Put current level in it.
 
 
     def on_draw(self):
