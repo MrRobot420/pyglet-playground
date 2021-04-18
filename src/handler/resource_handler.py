@@ -7,9 +7,11 @@ class ResourceHandler:
     def __init__(self):
         pyglet.resource.path = ["resources"]
         pyglet.resource.reindex()
-        self.axolotl = pyglet.resource.image("enemies/axolotl.png")
-        self.skeleton = pyglet.resource.image("enemies/skeleton.png")
-        self.werewolf = pyglet.resource.image("enemies/werewolf.png")
+        self.axolotl = pyglet.resource.image('enemies/axolotl.png')
+        self.skeleton = pyglet.resource.image('enemies/skeleton.png')
+        self.werewolf = pyglet.resource.image('enemies/werewolf.png')
+        self.player = pyglet.resource.image('player/player.png')
+        self.laser_fire = pyglet.resource.image('player/laser-fire.png')
 
     def return_image_for_name(self, name):
         if name == 'axolotl':
@@ -18,6 +20,13 @@ class ResourceHandler:
             return self.skeleton
         elif name == 'werewolf':
             return self.werewolf
+
+    
+    def return_player(self):
+        return self.player
+    
+    def return_bullet(self):
+        return self.laser_fire
 
     def load_font(self):
         # load external font from file

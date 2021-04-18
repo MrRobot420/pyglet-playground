@@ -20,6 +20,7 @@ class Enemy:
 
     def draw(self, x, y):
         self.enemy_sprite = pyglet.sprite.Sprite(self.image, x, y, batch=self.background)
+        # self.enemy_sprite.rotation = 30 # TODO: Rotate sprite by N° based on player x and y.
         self.enemy_sprite.scale = self.scale
 
     def update(self, dt):
