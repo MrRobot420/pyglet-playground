@@ -28,10 +28,10 @@ class EnemyHandler():
         self.mouse_y = mouse_y
         self.hud = hud
         for index, enemy in enumerate(self.enemies):
+            self.check_for_collisions(enemy, index)
             if HITBOX_ENABLED:
                 self.hitbox_handler.handle_hitboxes(enemy, index)
             self.adjust_enemy_position(enemy, index, dt)
-            self.check_for_collisions(enemy, index)
 
     def generate_enemies(self, level):
         dummy_enemy = Enemy(0, 100, 1, 1, self.background, self.current_level)
@@ -67,5 +67,7 @@ class EnemyHandler():
     def check_for_collisions(self, enemy, index):
         if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width)):
             if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height)):
+                if HITBOX_ENABLED:
+                    self.hitbox_handler.delete_hitbox(index)
                 self.enemies.pop(index)
                 self.hud.update(self.current_level)

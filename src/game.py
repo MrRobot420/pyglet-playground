@@ -4,7 +4,7 @@ import json
 from gui.main_window import MainWindow
 from gui.elements.cursor import Cursor
 from gui.menu.menu import Menu
-from handler.enemy_handler import EnemyHandler
+from handler.resource_handler import ResourceHandler
 
 class Game:
     def __init__(self):
@@ -15,6 +15,8 @@ class Game:
         with open('./level/levels.json', "r") as levels:
             self.levels = json.load(levels)
         print(self.levels)
+        self.resource_handler = ResourceHandler()
+        self.resource_handler.load_font()
         
         self.cursor = Cursor(self.background)
         self.pause_menu = Menu(self.width, self.height)

@@ -14,10 +14,10 @@ class EndScreen:
         self.x = (self.win_width / 2) - (self.button_width / 2)
         self.y = (self.win_height / 2) - (self.button_height / 2)
         self.pop_up = Rectangle(self.x - 100, self.y - 300, 500, 800, (50, 50, 50))
-        self.title = Label('G A M E   O V E R!', self.x - 40, self.y + 90, (150, 1, 1, 255))
-        self.info_label_score = Label(f'SCORE: {self.score}', self.x, self.y, (60, 135, 50, 255))
-        self.info_label_kills = Label(f'KILLS: {self.kill_count} / {total_enemies}', self.x - 20, self.y - 50, (60, 135, 50, 255))
-        self.menu_button = Button(self.button_width, self.button_height, self.x, self.y - 150, 5, 5, 'M E N U', (1, 1, 1), (60, 235, 50, 255))
+        self.title = Label('G A M E   O V E R!', self.x + 5, self.y + 90, (150, 1, 1, 255))
+        self.info_label_score = Label(f'SCORE: {self.score}', self.x + 50, self.y, (60, 135, 50, 255))
+        self.info_label_kills = Label(f'KILLS: {self.kill_count} / {total_enemies}', self.x + 15, self.y - 50, (60, 135, 50, 255))
+        self.menu_button = Button(self.button_width, self.button_height, self.x, self.y - 150, 3.4, 5, 'M E N U', (1, 1, 1), (60, 235, 50, 255))
 
     def draw(self):
         self.pop_up.draw()

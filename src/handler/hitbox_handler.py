@@ -11,7 +11,14 @@ class HitboxHandler:
         self.inner_hitboxes.append(Hitbox(newEnemy.speed, newEnemy.image_width, newEnemy.image_height, newEnemy.x_pos, newEnemy.y_pos, self.background, (230, 230, 230)))
 
     def handle_hitboxes(self, enemy, index):
-        hitbox = self.hitboxes[index]
-        inner_hitbox = self.inner_hitboxes[index]
-        hitbox.adjust_hitbox_position(enemy, hitbox, index, -2)
-        inner_hitbox.adjust_hitbox_position(enemy, inner_hitbox, index, 0)
+        try: 
+            hitbox = self.hitboxes[index]
+            inner_hitbox = self.inner_hitboxes[index]
+            hitbox.adjust_hitbox_position(enemy, hitbox, index, -2)
+            inner_hitbox.adjust_hitbox_position(enemy, inner_hitbox, index, 0)
+        except Exception:
+            pass
+
+    def delete_hitbox(self, index):
+        self.hitboxes.pop(index)
+        self.inner_hitboxes.pop(index)
