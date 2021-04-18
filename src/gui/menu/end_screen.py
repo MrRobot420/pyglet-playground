@@ -2,7 +2,7 @@ from gui.menu.button import Button
 from gui.elements.label import Label
 
 class EndScreen:
-    def __init__(self, window_width, window_height, score, kill_count):
+    def __init__(self, window_width, window_height, score, kill_count, total_enemies):
         self.win_width = window_width
         self.win_height = window_height
         self.score = score
@@ -12,8 +12,8 @@ class EndScreen:
         self.x = (self.win_width / 2) - (self.button_width / 2)
         self.y = (self.win_height / 2) - (self.button_height / 2)
         self.title = Label('G A M E   O V E R!', self.x - 40, self.y + 90, (150, 1, 1, 255))
-        self.info_label_score = Label(f'SCORE: {self.score}', self.x + 40, self.y, (60, 135, 50, 255))
-        self.info_label_kills = Label(f'KILLS: {self.kill_count}', self.x + 60, self.y - 50, (60, 135, 50, 255))
+        self.info_label_score = Label(f'SCORE: {self.score}', self.x, self.y, (60, 135, 50, 255))
+        self.info_label_kills = Label(f'KILLS: {self.kill_count} / {total_enemies}', self.x - 20, self.y - 50, (60, 135, 50, 255))
         self.menu_button = Button(self.button_width, self.button_height, self.x, self.y - 150, 5, 5, 'M E N U', (1, 1, 1), (60, 235, 50, 255))
 
     def draw(self):

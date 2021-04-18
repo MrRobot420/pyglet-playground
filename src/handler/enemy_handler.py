@@ -68,4 +68,4 @@ class EnemyHandler():
         if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width)):
             if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height)):
                 self.enemies.pop(index)
-                self.hud.update()
+                self.hud.update(self.current_level)
