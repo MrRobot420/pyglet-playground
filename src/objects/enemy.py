@@ -1,17 +1,19 @@
 import pyglet.sprite
-from pyglet import image, sprite
+from pyglet import sprite
 
+from handler.resource_handler import ResourceHandler
 
 class Enemy:
-    def __init__(self, speed, health, x_pos, y_pos, background, enemy_image):
+    def __init__(self, speed, health, x_pos, y_pos, background, level):
         self.speed = speed
         self.health = health
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.background = background
+        self.resource_handler = ResourceHandler()
         # Png
         self.scale = 0.25
-        self.image = enemy_image
+        self.image = self.resource_handler.return_image_for_name(level['enemy_type'])
         self.cursor_sprite = sprite.Sprite(self.image, 0, 0)
         self.image_width = self.image.width * self.scale
         self.image_height = self.image.height * self.scale

@@ -34,26 +34,24 @@ class EnemyHandler():
             self.check_for_collisions(enemy, index)
 
     def generate_enemies(self, level):
-        dummy_enemy_image = image.load(f'./resources/enemies/axolotl.png')
-        dummy_enemy = Enemy(0, 100, 1, 1, self.background, dummy_enemy_image)
+        dummy_enemy = Enemy(0, 100, 1, 1, self.background, self.current_level)
         if TEST:
             for _ in range(1):
                 enemy_speed = random.randint(1, 100)
                 x = random.randint(10, self.screen_width - int(dummy_enemy.image_width))
                 y = self.screen_height
-                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, dummy_enemy_image)
+                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, self.current_level)
                 if HITBOX_ENABLED:
                     self.hitbox_handler.generate_hitbox_for_enemy(newEnemy)
                 self.enemies.append(newEnemy)
         else:
-            enemy_image = image.load(f'./resources/enemies/{level["enemy_type"]}.png')
             for _ in range(level['enemy_amount']):
                 max_speed = level['enemy_speed']
                 enemy_speed = random.randint(10, max_speed) 
                 # TODO: Change this later to match idea:
                 x = random.randint(1, self.screen_width - int(dummy_enemy.image_width))
                 y = self.screen_height
-                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, enemy_image)
+                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, self.current_level)
                 if HITBOX_ENABLED:
                     self.hitbox_handler.generate_hitbox_for_enemy(newEnemy)
                 self.enemies.append(newEnemy)
