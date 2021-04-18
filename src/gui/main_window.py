@@ -11,7 +11,7 @@ class MainWindow(pyglet.window.Window):
     # TODO: add settings file where width, height etc can be stored?
     def __init__(self, cursor, levels, pause_menu, background, *args, **kwrgs):
         super().__init__(*args, **kwrgs, vsync=False)
-        pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
+        pyglet.gl.glClearColor(0.4, 0.4, 0.1, 1)
         self.cursor = cursor
         self.levels = levels
         self.current_level = 0
