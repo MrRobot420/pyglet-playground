@@ -11,7 +11,7 @@ class MainWindow(pyglet.window.Window):
     # TODO: add settings file where width, height etc can be stored?
     def __init__(self, cursor, levels, pause_menu, background, *args, **kwrgs):
         super().__init__(*args, **kwrgs, vsync=False)
-        pyglet.gl.glClearColor(0.9, 0.9, 0.9, 1)
+        pyglet.gl.glClearColor(0.7, 0.6, 0.4, 0.29)
         self.cursor = cursor
         self.levels = levels
         self.current_level = 0
@@ -22,7 +22,7 @@ class MainWindow(pyglet.window.Window):
         self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies), (255, 69, 0, 255))
         self.pause_menu = pause_menu
         self.menu_visible = True
-        self.end_screen = EndScreen(self.width, self.height, 0, 0)
+        self.end_screen = EndScreen(self.width, self.height, 0, 0, 0)
         self.end_screen_visible = False
 
         self.mouse_x = 0
@@ -103,7 +103,7 @@ class MainWindow(pyglet.window.Window):
             # traceback.print_exc()
             print('\nALL LEVELS COMPLETED!')
             self.hud.level_info.reset_level()
-            self.end_screen = EndScreen(self.width, self.height, self.hud.score.value, self.hud.kill_count.killed)
+            self.end_screen = EndScreen(self.width, self.height, self.hud.score.value, self.hud.kill_count.killed, self.hud.kill_count.enemy_amount)
             self.level_active = False
             self.end_screen_visible = True
 

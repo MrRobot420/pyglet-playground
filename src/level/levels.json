@@ -3,16 +3,34 @@
         {
             "level": 1,
             "enemy_speed": 60,
-            "enemy_health": 100,
+            "enemy_health": 75,
             "enemy_amount": 100,
+            "kill_reward": 10,
             "enemy_type": "axolotl"
         },
         {
             "level": 2,
             "enemy_speed": 70,
             "enemy_health": 100,
-            "enemy_amount": 200,
+            "enemy_amount": 100,
+            "kill_reward": 10,
             "enemy_type": "axolotl"
+        },
+        {
+            "level": 3,
+            "enemy_speed": 70,
+            "enemy_health": 200,
+            "enemy_amount": 100,
+            "kill_reward": 15,
+            "enemy_type": "skeleton"
+        },
+        {
+            "level": 3,
+            "enemy_speed": 70,
+            "enemy_health": 100,
+            "enemy_amount": 150,
+            "kill_reward": 25,
+            "enemy_type": "werewolf"
         }
     ]
 }

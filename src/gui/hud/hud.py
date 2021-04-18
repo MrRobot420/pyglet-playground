@@ -17,6 +17,6 @@ class HUD:
         self.kill_count.draw()
         self.level_info.draw()
 
-    def update(self):
-        self.score.update_score()
+    def update(self, level):
+        self.score.update_score(level['kill_reward'])
         self.kill_count.update_counter()

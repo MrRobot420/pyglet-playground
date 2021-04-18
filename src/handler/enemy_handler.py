@@ -1,7 +1,8 @@
 import random
 
+from pyglet import image
+
 from objects.enemy import Enemy
-from objects.hitbox import Hitbox
 from handler.hitbox_handler import HitboxHandler
 
 HITBOX_ENABLED = False
@@ -27,19 +28,19 @@ class EnemyHandler():
         self.mouse_y = mouse_y
         self.hud = hud
         for index, enemy in enumerate(self.enemies):
+            self.check_for_collisions(enemy, index)
             if HITBOX_ENABLED:
                 self.hitbox_handler.handle_hitboxes(enemy, index)
             self.adjust_enemy_position(enemy, index, dt)
-            self.check_for_collisions(enemy, index)
 
     def generate_enemies(self, level):
-        dummy_enemy = Enemy(0, 100, 1, 1, self.background, 'axolotl')
+        dummy_enemy = Enemy(0, 100, 1, 1, self.background, self.current_level)
         if TEST:
             for _ in range(1):
                 enemy_speed = random.randint(1, 100)
                 x = random.randint(10, self.screen_width - int(dummy_enemy.image_width))
                 y = self.screen_height
-                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, 'axolotl')
+                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, self.current_level)
                 if HITBOX_ENABLED:
                     self.hitbox_handler.generate_hitbox_for_enemy(newEnemy)
                 self.enemies.append(newEnemy)
@@ -47,11 +48,10 @@ class EnemyHandler():
             for _ in range(level['enemy_amount']):
                 max_speed = level['enemy_speed']
                 enemy_speed = random.randint(10, max_speed) 
-                enemy_type = level['enemy_type']
                 # TODO: Change this later to match idea:
                 x = random.randint(1, self.screen_width - int(dummy_enemy.image_width))
                 y = self.screen_height
-                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, enemy_type)
+                newEnemy = Enemy(enemy_speed, 100, x, y, self.background, self.current_level)
                 if HITBOX_ENABLED:
                     self.hitbox_handler.generate_hitbox_for_enemy(newEnemy)
                 self.enemies.append(newEnemy)
@@ -67,5 +67,7 @@ class EnemyHandler():
     def check_for_collisions(self, enemy, index):
         if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width)):
             if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height)):
+                if HITBOX_ENABLED:
+                    self.hitbox_handler.delete_hitbox(index)
                 self.enemies.pop(index)
-                self.hud.update()
+                self.hud.update(self.current_level)
