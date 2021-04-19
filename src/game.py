@@ -5,6 +5,7 @@ from gui.main_window import MainWindow
 from gui.elements.cursor import Cursor
 from gui.menu.menu import Menu
 from handler.resource_handler import ResourceHandler
+from objects.player import Player
 
 class Game:
     def __init__(self):
