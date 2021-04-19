@@ -9,7 +9,7 @@ class Player:
         self.x = x
         self.y = y
         self.background = background
-        self.scale = 0.25
+        self.scale = 0.125
         self.resource_handler = ResourceHandler()
         self.image = self.resource_handler.return_player()
         self.player_sprite = sprite.Sprite(self.image, self.x, self.y, batch=self.background)

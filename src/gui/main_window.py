@@ -5,6 +5,8 @@ from gui.menu.end_screen import EndScreen
 
 from handler.event_handler import GameEventHandler
 from handler.enemy_handler import EnemyHandler
+from handler.player_handler import PlayerHandler
+from objects.player import Player
 from gui.hud.hud import HUD
 
 class MainWindow(pyglet.window.Window):
@@ -18,6 +20,8 @@ class MainWindow(pyglet.window.Window):
         self.level_background = background
         self.level_active = False
         self.enemy_handler = self.spawn_enemies_for_level(self.current_level)
+        self.player = Player(self.width / 2, 40, self.level_background)
+        self.player_handler = PlayerHandler(self.player)
 
         self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies), (255, 69, 0, 255))
         self.pause_menu = pause_menu
@@ -28,7 +32,13 @@ class MainWindow(pyglet.window.Window):
         self.mouse_x = 0
         self.mouse_y = 0
 
-        self.game_event_handler = GameEventHandler(self.update_mouse_coordinates, self.toggle_menu, self.mouse_click_tracker, self.mouse_motion_tracker)
+        self.game_event_handler = GameEventHandler(
+                                    self.update_mouse_coordinates, 
+                                    self.toggle_menu, 
+                                    self.mouse_click_tracker, 
+                                    self.mouse_motion_tracker,
+                                    self.player_handler.player_action_handler
+                                    )
         self.push_handlers(self.game_event_handler)
 
     

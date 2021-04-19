@@ -5,7 +5,6 @@ from gui.main_window import MainWindow
 from gui.elements.cursor import Cursor
 from gui.menu.menu import Menu
 from handler.resource_handler import ResourceHandler
-from objects.player import Player
 
 class Game:
     def __init__(self):
@@ -18,7 +17,6 @@ class Game:
         print(self.levels)
         self.resource_handler = ResourceHandler()
         self.resource_handler.load_font()
-        self.player = Player(self.width / 2, 40, self.background)
         
         self.cursor = Cursor(self.background)
         self.pause_menu = Menu(self.width, self.height)
