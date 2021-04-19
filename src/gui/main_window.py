@@ -20,8 +20,9 @@ class MainWindow(pyglet.window.Window):
         self.level_background = background
         self.level_active = False
         self.enemy_handler = self.spawn_enemies_for_level(self.current_level)
+
         self.player = Player(self.width / 2, 40, self.level_background)
-        self.player_handler = PlayerHandler(self.player)
+        self.player_handler = PlayerHandler(self.player, self.width, self.height)
 
         self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies), (255, 69, 0, 255))
         self.pause_menu = pause_menu

@@ -18,7 +18,6 @@ class Game:
         print(self.levels)
         self.resource_handler = ResourceHandler()
         self.resource_handler.load_font()
-        self.player = Player(self.width / 2, 40, self.background)
         
         self.cursor = Cursor(self.background)
         self.pause_menu = Menu(self.width, self.height)
