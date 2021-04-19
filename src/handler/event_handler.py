@@ -41,13 +41,10 @@ class GameEventHandler:
         if symbol == key.TAB:
             self.toggle_menu()
         if symbol == key.W:
-            # self.keys[symbol]
-            self.player_action_handler('W')
+            self.keys[symbol] = True
         if symbol == key.A:
-            self.player_action_handler('A')
+            self.keys[symbol] = True
         if symbol == key.S:
-            self.player_action_handler('S')
+            self.keys[symbol] = True
         if symbol == key.D:
-            self.player_action_handler('D')
-
-        self.keys[symbol] = True
+            self.keys[symbol] = True

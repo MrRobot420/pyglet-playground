@@ -37,7 +37,7 @@ class MainWindow(pyglet.window.Window):
                                     self.toggle_menu, 
                                     self.mouse_click_tracker, 
                                     self.mouse_motion_tracker,
-                                    self.player_handler.player_action_handler
+                                    self.player_handler.player_action_handler,
                                     )
         self.push_handlers(self.game_event_handler)
 
@@ -128,6 +128,7 @@ class MainWindow(pyglet.window.Window):
 
             self.cursor.draw(self.mouse_x, self.mouse_y)
             self.level_background.draw()
+            self.player_handler.handle_player_action(self.game_event_handler.keys)
             self.hud.draw()
         elif self.end_screen_visible:
             self.set_mouse_visible(True)

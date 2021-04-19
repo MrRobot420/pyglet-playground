@@ -1,8 +1,21 @@
+from pyglet.window import key
 
 class PlayerHandler:
-    def __init__(self, player):
+    def __init__(self, player, width, height):
+        self.screen_width = width
+        self.screen_height = height
         self.player = player
-        self.step_size = 10
+        self.step_size = 5
+
+    def handle_player_action(self, keys):
+        if key.W in keys:
+            self.player_action_handler('W')
+        if key.A in keys:
+            self.player_action_handler('A')
+        if key.S in keys:
+            self.player_action_handler('S')
+        if key.D in keys:
+            self.player_action_handler('D')
 
 
     def player_action_handler(self, key):
