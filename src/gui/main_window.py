@@ -70,10 +70,7 @@ class MainWindow(pyglet.window.Window):
 
         # reinit menus:
         self.pause_menu = Menu(self.width, self.height)
-
-        self.pause_menu.win_width = width
-        self.pause_menu.win_height = height
-
+        # add handlers:
         self.pop_handlers()
         self.game_event_handler = GameEventHandler(
                                     self.update_mouse_coordinates, 
