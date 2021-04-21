@@ -104,6 +104,10 @@ class MainWindow(pyglet.window.Window):
                 self.end_screen_visible = False
                 self.toggle_menu()
 
+
+    def weapon_tracker(self):
+        self.bullet_handler()
+        pass
     
     def mouse_motion_tracker(self, x, y):
         if self.menu_visible:
