@@ -1,6 +1,6 @@
 from pyglet.shapes import Rectangle
 
-from gui.menu.button import Button
+from gui.elements.button import Button
 from gui.elements.label import Label
 
 class EndScreen:

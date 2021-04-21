@@ -16,6 +16,8 @@ class PlayerHandler:
             self.player_action_handler('S')
         if key.D in keys:
             self.player_action_handler('D')
+        if key.SPACE in keys:
+            self.player_action_handler('SPACE')
 
 
     def player_action_handler(self, key):
@@ -31,6 +33,9 @@ class PlayerHandler:
         if key == 'D':
             if self.player_x_pos_in_screen(self.player.x, '+'):
                 self.player.x += self.step_size
+        if key == 'SPACE':
+            # TODO: Add bullet to bullet handler. Save position of cursor at point of bullet creation. Turn bullet accordingly!
+            self.bullet_handler.add_bullet()
         self.player.draw(self.player.x, self.player.y)
 
 

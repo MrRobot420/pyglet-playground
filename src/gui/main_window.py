@@ -8,6 +8,7 @@ from handler.enemy_handler import EnemyHandler
 from handler.player_handler import PlayerHandler
 from objects.player import Player
 from gui.hud.hud import HUD
+from gui.menu.menu import Menu
 
 class MainWindow(pyglet.window.Window):
     # TODO: add settings file where width, height etc can be stored?
@@ -52,6 +53,36 @@ class MainWindow(pyglet.window.Window):
         self.menu_visible = not self.menu_visible
 
     
+    def on_resize(self, width, height):
+        self.width = width
+        self.height = height
+
+        # reinitialize score with current values:
+        current_score = self.hud.score.value
+        current_kill_count = self.hud.kill_count.killed
+        self.hud = HUD(self.width, self.height, self.levels[self.current_level]['enemy_amount'], (255, 69, 0, 255))
+        self.hud.score.update_score(current_score)
+        self.hud.kill_count.killed = current_kill_count
+
+        # reinit player and player_handler
+        self.player = Player(self.width / 2, 40, self.level_background)
+        self.player_handler = PlayerHandler(self.player, self.width, self.height)
+
+        # reinit menus:
+        self.pause_menu = Menu(self.width, self.height)
+        # add handlers:
+        self.pop_handlers()
+        self.game_event_handler = GameEventHandler(
+                                    self.update_mouse_coordinates, 
+                                    self.toggle_menu, 
+                                    self.mouse_click_tracker, 
+                                    self.mouse_motion_tracker,
+                                    self.player_handler.player_action_handler,
+                                    )
+        self.push_handlers(self.game_event_handler)
+        return super().on_resize(width, height)
+
+    
     def mouse_click_tracker(self, x, y):
         if self.menu_visible:
             if self.pause_menu.button_was_clicked(x, y, self.pause_menu.start_button):
@@ -73,6 +104,10 @@ class MainWindow(pyglet.window.Window):
                 self.end_screen_visible = False
                 self.toggle_menu()
 
+
+    def weapon_tracker(self):
+        self.bullet_handler()
+        pass
     
     def mouse_motion_tracker(self, x, y):
         if self.menu_visible:
