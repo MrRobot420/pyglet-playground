@@ -167,7 +167,7 @@ class MainWindow(pyglet.window.Window):
 
             self.cursor.draw(self.mouse_x, self.mouse_y)
             self.player_handler.handle_player_action(self.game_event_handler.keys)
-            self.bullet_handler.handle_bullets(dt, self.width, self.height)
+            self.bullet_handler.handle_bullets(self.width, self.height)
             self.level_background.draw()
             self.hud.draw()
         elif self.end_screen_visible:

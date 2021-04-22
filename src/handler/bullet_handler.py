@@ -8,36 +8,42 @@ class BulletHandler():
         self.bullets = []
         self.last_shot = 0
         self.timeout = 0.25
+        self.speed = 500
     
+
     def add_bullet(self, cursor):
         current_shot = dtime.now().timestamp()
         if (current_shot - self.last_shot) > self.timeout:
-            print('Shooting.')
             start_x = self.player.x
             start_y = self.player.y + self.player.image_height
-            target_x = cursor.x
-            target_y = cursor.y
-            print(f'Aiming at target: {target_x}, {target_y}')
-            new_bullet = Bullet(start_x, start_y, target_x, target_y, self.background)
+            new_bullet = Bullet(start_x, start_y, cursor.x - cursor.width, cursor.y - cursor.height, self.background)
             self.bullets.append(new_bullet)
             self.last_shot = current_shot
+            print(f'Shooting at target: {cursor.x}, {cursor.y}')
 
     
-    def handle_bullets(self, dt, width, height):
+    def handle_bullets(self, width, height):
         current_time = dtime.now().timestamp()
         for index, bullet in enumerate(self.bullets):
             time_factor = current_time - bullet.start_time
             if self.bullet_in_display(bullet, width, height):
-                target_x = bullet.target_x
-                target_y = bullet.target_y
-                # TODO: Add velocity to bullet. Add turn to bullet. All based on cursor position!
-                start_x = bullet.start_x
-                start_y = bullet.start_y
-                x_diff = target_x - start_x
-                y_diff = target_y - start_y
-                bullet.update_bullet(x_diff * time_factor, y_diff * time_factor)
+                next_x, next_y = self.calculate_next_position(bullet, time_factor)
+                bullet.update_bullet(next_x, next_y)
             else:
                 self.bullets.pop(index)
+
+    
+    def calculate_next_position(self, bullet, time_factor):
+        x_diff = int(bullet.target_x) - int(bullet.start_x)
+        y_diff = int(bullet.target_y) - int(bullet.start_y)
+
+        positive_target_x = int(bullet.target_x) if bullet.target_x >= 0 else int(bullet.target_x) * -1
+        positive_target_y = int(bullet.target_y) if bullet.target_y >= 0 else int(bullet.target_y) * -1
+
+        next_x = bullet.start_x + (x_diff / positive_target_x) * time_factor * self.speed
+        next_y = bullet.start_y + (y_diff / positive_target_y) * time_factor * self.speed 
+
+        return next_x, next_y
 
 
     def bullet_in_display(self, bullet, width, height):
