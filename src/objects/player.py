@@ -1,5 +1,3 @@
-
-
 from pyglet import sprite
 from handler.resource_handler import ResourceHandler
 
@@ -22,7 +20,3 @@ class Player:
         self.y = y
         self.player_sprite = sprite.Sprite(self.image, self.x, self.y, batch=self.background)
         self.player_sprite.scale = self.scale
-
-    # Maybe put it into the bullet /weapon class?
-    def shoot(self):
-        self.bullet = self.resource_handler.return_bullet()

@@ -1,13 +1,18 @@
 from pyglet.window import key
 
 class PlayerHandler:
-    def __init__(self, player, width, height):
+    def __init__(self, player, width, height, bullet_handler, cursor):
         self.screen_width = width
         self.screen_height = height
-        self.player = player
+        self.player = bullet_handler.player
+        self.bullet_handler = bullet_handler
+        self.cursor = cursor
         self.step_size = 5
 
+
     def handle_player_action(self, keys):
+        if key.SPACE in keys:
+            self.player_action_handler('SPACE')
         if key.W in keys:
             self.player_action_handler('W')
         if key.A in keys:
@@ -16,8 +21,6 @@ class PlayerHandler:
             self.player_action_handler('S')
         if key.D in keys:
             self.player_action_handler('D')
-        if key.SPACE in keys:
-            self.player_action_handler('SPACE')
 
 
     def player_action_handler(self, key):
@@ -35,7 +38,7 @@ class PlayerHandler:
                 self.player.x += self.step_size
         if key == 'SPACE':
             # TODO: Add bullet to bullet handler. Save position of cursor at point of bullet creation. Turn bullet accordingly!
-            self.bullet_handler.add_bullet()
+            self.bullet_handler.add_bullet(self.cursor)
         self.player.draw(self.player.x, self.player.y)
 
 

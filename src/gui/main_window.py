@@ -1,4 +1,3 @@
-import traceback
 import pyglet
 from pyglet.gl import *
 from gui.menu.end_screen import EndScreen
@@ -6,6 +5,7 @@ from gui.menu.end_screen import EndScreen
 from handler.event_handler import GameEventHandler
 from handler.enemy_handler import EnemyHandler
 from handler.player_handler import PlayerHandler
+from handler.bullet_handler import BulletHandler
 from objects.player import Player
 from gui.hud.hud import HUD
 from gui.menu.menu import Menu
@@ -21,9 +21,11 @@ class MainWindow(pyglet.window.Window):
         self.level_background = background
         self.level_active = False
         self.enemy_handler = self.spawn_enemies_for_level(self.current_level)
+        
 
         self.player = Player(self.width / 2, 40, self.level_background)
-        self.player_handler = PlayerHandler(self.player, self.width, self.height)
+        self.bullet_handler = BulletHandler(self.player, self.level_background)
+        self.player_handler = PlayerHandler(self.player, self.width, self.height, self.bullet_handler, self.cursor)
 
         self.hud = HUD(self.width, self.height, len(self.enemy_handler.enemies), (255, 69, 0, 255))
         self.pause_menu = pause_menu
@@ -66,7 +68,8 @@ class MainWindow(pyglet.window.Window):
 
         # reinit player and player_handler
         self.player = Player(self.width / 2, 40, self.level_background)
-        self.player_handler = PlayerHandler(self.player, self.width, self.height)
+        self.bullet_handler = BulletHandler(self.player, self.level_background)
+        self.player_handler = PlayerHandler(self.player, self.width, self.height, self.bullet_handler, self.cursor)
 
         # reinit menus:
         self.pause_menu = Menu(self.width, self.height)
@@ -163,8 +166,9 @@ class MainWindow(pyglet.window.Window):
             self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.hud, dt)
 
             self.cursor.draw(self.mouse_x, self.mouse_y)
-            self.level_background.draw()
             self.player_handler.handle_player_action(self.game_event_handler.keys)
+            self.bullet_handler.handle_bullets(self.width, self.height)
+            self.level_background.draw()
             self.hud.draw()
         elif self.end_screen_visible:
             self.set_mouse_visible(True)

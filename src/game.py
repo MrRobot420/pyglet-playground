@@ -32,7 +32,7 @@ class Game:
 
         self.game_window.set_mouse_visible(False)  # Hide the mouse cursor
 
-        pyglet.clock.schedule_interval(self.game_window.update, 1/1200.0)
+        pyglet.clock.schedule_interval(self.game_window.update, 1/120.0)
         pyglet.app.run()
 
 if __name__ == '__main__':
