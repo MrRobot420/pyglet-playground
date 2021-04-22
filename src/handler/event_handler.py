@@ -48,3 +48,5 @@ class GameEventHandler:
             self.keys[symbol] = True
         if symbol == key.D:
             self.keys[symbol] = True
+        if symbol == key.SPACE:
+            self.keys[symbol] = True
