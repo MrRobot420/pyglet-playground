@@ -11,6 +11,7 @@ class Enemy:
         self.y_pos = y_pos
         self.background = background
         self.resource_handler = ResourceHandler()
+        self.health = level['enemy_health']
         # Png
         self.scale = 0.25
         self.image = self.resource_handler.return_image_for_name(level['enemy_type'])

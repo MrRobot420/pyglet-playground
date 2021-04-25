@@ -163,7 +163,7 @@ class MainWindow(pyglet.window.Window):
         if not self.menu_visible and self.level_active:
             self.check_if_level_ended()
             self.set_mouse_visible(False)
-            self.enemy_handler.handle_enemies(self.mouse_x, self.mouse_y, self.hud, dt)
+            self.enemy_handler.handle_enemies(self.bullet_handler.bullets, self.hud, dt)
 
             self.cursor.draw(self.mouse_x, self.mouse_y)
             self.player_handler.handle_player_action(self.game_event_handler.keys)

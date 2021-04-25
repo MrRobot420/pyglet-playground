@@ -5,7 +5,7 @@ from handler.resource_handler import ResourceHandler
 
 
 class Bullet:
-    def __init__(self, x, y, target_x, target_y, background):
+    def __init__(self, x, y, target_x, target_y, background, damage):
         self.x = x
         self.y = y
         self.start_x = x
@@ -15,6 +15,7 @@ class Bullet:
         self.scale = 0.0625
         self.background = background
         self.start_time = dtime.now().timestamp()
+        self.damage = damage
 
         self.resource_handler = ResourceHandler()
         self.bullet_image = self.resource_handler.return_bullet()

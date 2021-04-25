@@ -16,19 +16,15 @@ class EnemyHandler():
         self.enemies = []
         self.current_level = level
 
-        self.mouse_x = 0
-        self.mouse_y = 0
         self.score = 0
         self.hitbox_handler = HitboxHandler(self.background)
         self.generate_enemies(self.current_level) # spawn enemies
         self.increase_level = increase_level
 
-    def handle_enemies(self, mouse_x, mouse_y, hud, dt):
-        self.mouse_x = mouse_x
-        self.mouse_y = mouse_y
+    def handle_enemies(self, bullets, hud, dt):
         self.hud = hud
         for index, enemy in enumerate(self.enemies):
-            self.check_for_collisions(enemy, index)
+            self.check_for_collisions(enemy, index, bullets)
             if HITBOX_ENABLED:
                 self.hitbox_handler.handle_hitboxes(enemy, index)
             self.adjust_enemy_position(enemy, index, dt)
@@ -64,10 +60,15 @@ class EnemyHandler():
             enemy.draw(enemy.x_pos, enemy.y_pos)
             enemy.update(dt)
 
-    def check_for_collisions(self, enemy, index):
-        if (self.mouse_x >= int(enemy.x_pos)) and (self.mouse_x <= int(enemy.x_pos) + (enemy.image_width)):
-            if (self.mouse_y >= int(enemy.y_pos)) and (self.mouse_y <= int(enemy.y_pos) + (enemy.image_height)):
-                if HITBOX_ENABLED:
-                    self.hitbox_handler.delete_hitbox(index)
-                self.enemies.pop(index)
-                self.hud.update(self.current_level)
+    def check_for_collisions(self, enemy, index, bullets):
+        for b_index, bullet in enumerate(bullets):
+            if (bullet.x >= int(enemy.x_pos)) and (bullet.x <= int(enemy.x_pos) + (enemy.image_width)):
+                if (bullet.y >= int(enemy.y_pos)) and (bullet.y <= int(enemy.y_pos) + (enemy.image_height)):
+                    if enemy.health > 0:
+                        enemy.health -= bullet.damage
+                        bullets.pop(b_index) # fly further if enemy was killed
+                    if enemy.health <= 0:
+                        self.enemies.pop(index)
+                        self.hud.update(self.current_level)
+                        if HITBOX_ENABLED:
+                            self.hitbox_handler.delete_hitbox(index)
