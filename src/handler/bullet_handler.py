@@ -9,7 +9,7 @@ class BulletHandler():
         self.player = player
         self.bullets = []
         self.last_shot = 0
-        self.timeout = 0.25
+        self.timeout = 0.125
         self.speed = 10
         self.speed_factor = 100
     
@@ -22,7 +22,7 @@ class BulletHandler():
             new_bullet = Bullet(start_x, start_y, cursor.x - cursor.width, cursor.y - cursor.height, self.background)
             self.bullets.append(new_bullet)
             self.last_shot = current_shot
-            print(f'Shooting at target: {cursor.x}, {cursor.y}')
+            # print(f'Shooting at target: {cursor.x}, {cursor.y}')
 
     
     def handle_bullets(self, width, height):
@@ -39,7 +39,7 @@ class BulletHandler():
     def calculate_next_position(self, bullet, time_factor):
         x_diff = int(bullet.target_x) - int(bullet.start_x)
         y_diff = int(bullet.target_y) - int(bullet.start_y)
-        
+
         magnitude = math.sqrt((x_diff**2 + y_diff**2))
 
         normalized_x = x_diff / magnitude
