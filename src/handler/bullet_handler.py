@@ -1,3 +1,5 @@
+import math
+
 from datetime import datetime as dtime
 from objects.bullet import Bullet
 
@@ -8,7 +10,8 @@ class BulletHandler():
         self.bullets = []
         self.last_shot = 0
         self.timeout = 0.25
-        self.speed = 500
+        self.speed = 10
+        self.speed_factor = 100
     
 
     def add_bullet(self, cursor):
@@ -36,12 +39,14 @@ class BulletHandler():
     def calculate_next_position(self, bullet, time_factor):
         x_diff = int(bullet.target_x) - int(bullet.start_x)
         y_diff = int(bullet.target_y) - int(bullet.start_y)
+        
+        magnitude = math.sqrt((x_diff**2 + y_diff**2))
 
-        positive_target_x = int(bullet.target_x) if bullet.target_x >= 0 else int(bullet.target_x) * -1
-        positive_target_y = int(bullet.target_y) if bullet.target_y >= 0 else int(bullet.target_y) * -1
+        normalized_x = x_diff / magnitude
+        normalized_y = y_diff / magnitude
 
-        next_x = bullet.start_x + (x_diff / positive_target_x) * time_factor * self.speed
-        next_y = bullet.start_y + (y_diff / positive_target_y) * time_factor * self.speed 
+        next_x = bullet.start_x + (normalized_x * time_factor * self.speed_factor * self.speed)
+        next_y = bullet.start_y + (normalized_y * time_factor * self.speed_factor * self.speed)
 
         return next_x, next_y
 
