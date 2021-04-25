@@ -16,7 +16,7 @@ class Menu:
         self.title = Label('M A I N   M E N U', self.x + 5, self.y + 120, (40, 110, 1, 255))
         self.start_button = Button(self.button_width, self.button_height, self.x, self.y, 3.7, 5, 'S T A R T', (1, 1, 1), (60, 235, 50, 255))
         self.resume_button = Button(self.button_width, self.button_height, self.x, self.y - 80, 5.4, 5, 'R E S U M E', (1, 1, 1), (60, 235, 50, 255))
-        self.quit_button = Button(self.button_width, self.button_height, self.x, self.y - 200, 3, 5, 'Q U I T', (1, 1, 1), (60, 235, 50, 255))
+        self.quit_button = Button(self.button_width, self.button_height, self.x, self.y - 200, 3, 5, 'Q U I T', (1, 1, 1), (235, 60, 50, 255))
 
     def draw(self):
         self.pop_up.draw()

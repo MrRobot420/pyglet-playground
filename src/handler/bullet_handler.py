@@ -2,14 +2,16 @@ import math
 
 from datetime import datetime as dtime
 from objects.bullet import Bullet
+from handler.resource_handler import ResourceHandler
 
 class BulletHandler():
     def __init__(self, player, background):
-        self.background = background
         self.player = player
+        self.background = background
+        self.resource_handler = ResourceHandler()
         self.bullets = []
         self.last_shot = 0
-        self.timeout = 0.25
+        self.timeout = 0.125
         self.speed = 10
         self.speed_factor = 100
         self.max_damage = 100
@@ -18,6 +20,7 @@ class BulletHandler():
     def add_bullet(self, cursor):
         current_shot = dtime.now().timestamp()
         if (current_shot - self.last_shot) > self.timeout:
+            self.resource_handler.shot_sound.play()
             start_x = self.player.x
             start_y = self.player.y + self.player.image_height
             new_bullet = Bullet(start_x, start_y, cursor.x - cursor.width, cursor.y - cursor.height, self.background, self.max_damage)
