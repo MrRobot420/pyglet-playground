@@ -9,9 +9,10 @@ class BulletHandler():
         self.player = player
         self.bullets = []
         self.last_shot = 0
-        self.timeout = 0.125
+        self.timeout = 0.25
         self.speed = 10
         self.speed_factor = 100
+        self.max_damage = 100
     
 
     def add_bullet(self, cursor):
@@ -19,7 +20,7 @@ class BulletHandler():
         if (current_shot - self.last_shot) > self.timeout:
             start_x = self.player.x
             start_y = self.player.y + self.player.image_height
-            new_bullet = Bullet(start_x, start_y, cursor.x - cursor.width, cursor.y - cursor.height, self.background)
+            new_bullet = Bullet(start_x, start_y, cursor.x - cursor.width, cursor.y - cursor.height, self.background, self.max_damage)
             self.bullets.append(new_bullet)
             self.last_shot = current_shot
             # print(f'Shooting at target: {cursor.x}, {cursor.y}')

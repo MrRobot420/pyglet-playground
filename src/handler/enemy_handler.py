@@ -64,8 +64,11 @@ class EnemyHandler():
         for b_index, bullet in enumerate(bullets):
             if (bullet.x >= int(enemy.x_pos)) and (bullet.x <= int(enemy.x_pos) + (enemy.image_width)):
                 if (bullet.y >= int(enemy.y_pos)) and (bullet.y <= int(enemy.y_pos) + (enemy.image_height)):
-                    if HITBOX_ENABLED:
-                        self.hitbox_handler.delete_hitbox(index)
-                    self.enemies.pop(index)
-                    self.hud.update(self.current_level)
-                    bullets.pop(b_index)
+                    if enemy.health > 0:
+                        enemy.health -= bullet.damage
+                        bullets.pop(b_index) # fly further if enemy was killed
+                    if enemy.health <= 0:
+                        self.enemies.pop(index)
+                        self.hud.update(self.current_level)
+                        if HITBOX_ENABLED:
+                            self.hitbox_handler.delete_hitbox(index)
